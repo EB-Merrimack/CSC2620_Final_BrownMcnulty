@@ -14,7 +14,7 @@ public class Mavenproject1 extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label label = new Label("Hello World!");
+        Label label = new Label("Hello World!!!!!!");
         StackPane root = new StackPane(label);
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setTitle("JavaFX Hello World");
