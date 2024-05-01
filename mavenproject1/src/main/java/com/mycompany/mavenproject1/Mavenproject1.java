@@ -26,6 +26,14 @@ import javafx.util.Duration;
  */
 public class Mavenproject1 extends Application {
 
+/**
+ * Overrides the start method of the Application class to create the initial scene
+ * for the Merrimack Computer Science Campus Tour application. The scene includes an image,
+ * a label, and a rectangle with a sparkling effect. The rectangle also has a "Continue"
+ * text that can be clicked to navigate to the building options menu.
+ *
+ * @param  primaryStage  the primary stage for this application
+ */
     @Override
     public void start(@SuppressWarnings("exports") Stage primaryStage) {
         // Create a label
@@ -103,6 +111,10 @@ root.getChildren().add(continueText);
         buildingOptionsGUI.start(primaryStage);
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
