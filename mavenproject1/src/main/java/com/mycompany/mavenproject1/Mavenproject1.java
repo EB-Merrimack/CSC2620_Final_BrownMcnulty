@@ -27,7 +27,7 @@ import javafx.util.Duration;
 public class Mavenproject1 extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(@SuppressWarnings("exports") Stage primaryStage) {
         // Create a label
         Label label = new Label("");
 

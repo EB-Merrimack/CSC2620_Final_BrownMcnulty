@@ -14,11 +14,10 @@ import javafx.stage.Stage;
 
 public class BuildingOptionsGUI extends Application {
 
-    private fivetendetailsgui fivetendetailsgui;
-
+    @SuppressWarnings("exports")
     @Override
     public void start(Stage primaryStage) {
-        fivetendetailsgui = new fivetendetailsgui();
+        new fivetendetailsgui();
 
         // Create a label
         Label label = new Label("Choose the building you want to explore:");
@@ -62,10 +61,7 @@ public class BuildingOptionsGUI extends Application {
     }
 
     private void showBuildingDetails(Stage primaryStage, String buildingName) {
-        fivetendetailsgui.showBuildingDetails(primaryStage, buildingName);
+        com.mycompany.mavenproject1.fivetendetailsgui.showBuildingDetails(primaryStage, buildingName);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

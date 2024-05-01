@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class fivetendetailsgui {
 
-    public static void showBuildingDetails(Stage primaryStage, String buildingName) {
+    public static void showBuildingDetails(@SuppressWarnings("exports") Stage primaryStage, String buildingName) {
         VBox root = new VBox(10);
         root.setPrefSize(400, 300);
         root.setStyle("-fx-background-color: lightgray; -fx-padding: 20px;");
