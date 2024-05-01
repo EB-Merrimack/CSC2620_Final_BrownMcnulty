@@ -23,15 +23,14 @@ public class BuildingOptionsGUI extends Application {
         Label label = new Label("Choose the building you want to explore:");
 
         // Create buttons for different buildings
-        Button building1Button = createBuildingButton(primaryStage, "Building 1", "building1.jpg");
-        Button building2Button = createBuildingButton(primaryStage, "Building 2", "building2.jpg");
-        Button building3Button = createBuildingButton(primaryStage, "Building 3", "building3.jpg");
+        Button building1Button = createBuildingButton(primaryStage, "east Campus: 510 and 530 Turnpike street", "https://images1.loopnet.com/i2/GdO6a0ARdeAnMqJhNF9KOKe8wC7qtg5hchexbrOypyM/110/510-Turnpike-St-North-Andover-MA-Primary-Photo-1-Large.jpg");
+        Button building2Button = createBuildingButton(primaryStage, "Main Campus", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz3aVGns1PtaylQoK0jV-wVHcFffWtR-czvfxsIBBE7w&s");
 
         // Create a VBox to hold the label and buttons
         VBox vbox = new VBox(10);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20));
-        vbox.getChildren().addAll(label, building1Button, building2Button, building3Button);
+        vbox.getChildren().addAll(label, building1Button, building2Button);
 
         // Create a Scene
         Scene scene = new Scene(vbox, 600, 400);
@@ -42,24 +41,24 @@ public class BuildingOptionsGUI extends Application {
         primaryStage.show();
     }
 
-    private Button createBuildingButton(Stage primaryStage, String buildingName, String imageName) {
+    private Button createBuildingButton(Stage primaryStage, String buildingName, String imageUrl) {
         Button button = new Button(buildingName);
         button.setOnAction(e -> showBuildingDetails(primaryStage, buildingName));
-
-        // Load the image
-        Image image = new Image(getClass().getResourceAsStream(imageName));
+    
+        // Load the image from URL
+        Image image = new Image(imageUrl);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(100); // Set image width
         imageView.setFitHeight(100); // Set image height
-
+    
         // Create an HBox to hold the image and button text
         HBox hbox = new HBox(10);
         hbox.setAlignment(Pos.CENTER);
         hbox.getChildren().addAll(imageView, button);
-
+    
         return button;
     }
-
+    
     private void showBuildingDetails(Stage primaryStage, String buildingName) {
         com.mycompany.mavenproject1.fivetendetailsgui.showBuildingDetails(primaryStage, buildingName);
     }
