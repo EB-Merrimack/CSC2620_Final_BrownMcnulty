@@ -5,35 +5,37 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BuildingOptionsGUI extends Application {
 
-    @SuppressWarnings("exports")
     @Override
     public void start(Stage primaryStage) {
-        new fivetendetailsgui();
+        // Create buttons for Main Campus and East Campus
+        Button mainCampusButton = new Button("Main Campus");
+        Button eastCampusButton = new Button("East Campus");
 
-        // Create a label
-        Label label = new Label("Choose the building you want to explore:");
+        // Set action for Main Campus button
+        mainCampusButton.setOnAction(e -> {
+            System.out.println("Main Campus option selected");
+            // Implement your logic for Main Campus here
+        });
 
-        // Create buttons for different buildings
-        Button building1Button = createBuildingButton(primaryStage, "east Campus: 510 and 530 Turnpike street", "https://images1.loopnet.com/i2/GdO6a0ARdeAnMqJhNF9KOKe8wC7qtg5hchexbrOypyM/110/510-Turnpike-St-North-Andover-MA-Primary-Photo-1-Large.jpg");
-        Button building2Button = createBuildingButton(primaryStage, "Main Campus", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz3aVGns1PtaylQoK0jV-wVHcFffWtR-czvfxsIBBE7w&s");
+        // Set action for East Campus button
+        eastCampusButton.setOnAction(e -> {
+            System.out.println("East Campus option selected");
+            // Implement your logic for East Campus here
+        });
 
-        // Create a VBox to hold the label and buttons
+        // Create a VBox to hold the buttons
         VBox vbox = new VBox(10);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20));
-        vbox.getChildren().addAll(label, building1Button, building2Button);
+        vbox.getChildren().addAll(mainCampusButton, eastCampusButton);
 
         // Create a Scene
-        Scene scene = new Scene(vbox, 600, 400);
+        Scene scene = new Scene(vbox, 300, 200);
 
         // Set the scene and show the stage
         primaryStage.setTitle("Building Options");
@@ -41,26 +43,7 @@ public class BuildingOptionsGUI extends Application {
         primaryStage.show();
     }
 
-    private Button createBuildingButton(Stage primaryStage, String buildingName, String imageUrl) {
-        Button button = new Button(buildingName);
-        button.setOnAction(e -> showBuildingDetails(primaryStage, buildingName));
-    
-        // Load the image from URL
-        Image image = new Image(imageUrl);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(100); // Set image width
-        imageView.setFitHeight(100); // Set image height
-    
-        // Create an HBox to hold the image and button text
-        HBox hbox = new HBox(10);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(imageView, button);
-    
-        return button;
+    public static void main(String[] args) {
+        launch(args);
     }
-    
-    private void showBuildingDetails(Stage primaryStage, String buildingName) {
-        com.mycompany.mavenproject1.fivetendetailsgui.showBuildingDetails(primaryStage, buildingName);
-    }
-
 }
