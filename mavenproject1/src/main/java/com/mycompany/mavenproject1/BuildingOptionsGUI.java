@@ -76,6 +76,7 @@ public class BuildingOptionsGUI extends Application {
                 tourButton.setOnAction(event -> {
                     // Perform actions specific to East Campus interactive tour
                     System.out.println("Initiating East Campus interactive tour...");
+                    fivetendetailsgui.showBuildingDetails(primaryStage, "East Campus");
                 });
                 tourButton.setVisible(true); // Show the button when East Campus checkbox is selected
             }
