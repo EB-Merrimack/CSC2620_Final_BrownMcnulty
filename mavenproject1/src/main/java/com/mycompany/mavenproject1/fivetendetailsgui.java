@@ -1,6 +1,8 @@
 package com.mycompany.mavenproject1;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -72,7 +74,7 @@ public class fivetendetailsgui {
     private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-
+    
         // Create left button
         Button leftButton = new Button("←");
         leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
@@ -80,18 +82,18 @@ public class fivetendetailsgui {
             int currentIndex = images.indexOf(imageView.getImage());
             if (currentIndex > 0) {
                 imageView.setImage(images.get(currentIndex - 1));
-                applyFadeTransition(imageView);
+                applyFadeTransition(imageView, true);
             }
         });
-
+    
         navButtons.getChildren().add(leftButton);
         return navButtons;
     }
-
+    
     private static VBox createRightNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-
+    
         // Create right button
         Button rightButton = new Button("→");
         rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
@@ -99,23 +101,35 @@ public class fivetendetailsgui {
             int currentIndex = images.indexOf(imageView.getImage());
             if (currentIndex < images.size() - 1) {
                 imageView.setImage(images.get(currentIndex + 1));
-                applyFadeTransition(imageView);
+                applyFadeTransition(imageView, false);
             }
         });
-
+    
         navButtons.getChildren().add(rightButton);
         return navButtons;
     }
-
-    private static void applyFadeTransition(ImageView imageView) {
+    
+    private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(TRANSITION_DURATION), imageView);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
-
-        fadeTransition.setOnFinished(event -> {
+    
+        TranslateTransition translateTransition;
+        if (isLeft) {
+            translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
+            translateTransition.setToX(-imageView.getFitWidth() / 2);
+        } else {
+            translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
+            translateTransition.setToX(imageView.getFitWidth() / 2);
+        }
+    
+        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
+        parallelTransition.setOnFinished(event -> {
             imageView.setOpacity(1.0); // Reset opacity after transition
+            imageView.setTranslateX(0); // Reset translation after transition
         });
-
-        fadeTransition.play();
+    
+        parallelTransition.play();
     }
+    
 }
