@@ -1,6 +1,5 @@
 package com.mycompany.mavenproject1;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,8 @@ import javafx.util.Duration;
 public class fivetendetailsgui {
 
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
+
+    private static volatile boolean threadRunning = false; // Flag to control the thread execution
 
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
@@ -44,11 +45,8 @@ public class fivetendetailsgui {
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor13.png"));
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor14.png"));
 
-
-
-
-       //add distinction between up and down
-       List<Image> images = new ArrayList<>();
+        // Add distinction between up and down
+        List<Image> images = new ArrayList<>();
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
@@ -72,7 +70,7 @@ public class fivetendetailsgui {
         // Create navigation buttons
         VBox leftNavButtons = createLeftNavigationButtons(images, imageView);
         VBox rightNavButtons = createRightNavigationButtons(images, imageView);
-        VBox Goback=createGobackButton(primaryStage);
+        VBox Goback = createGobackButton(primaryStage);
         Goback.setAlignment(Pos.CENTER);
         leftNavButtons.setAlignment(Pos.CENTER);
         rightNavButtons.setAlignment(Pos.CENTER);
@@ -81,7 +79,6 @@ public class fivetendetailsgui {
         BorderPane.setAlignment(leftNavButtons, Pos.CENTER_LEFT);
         BorderPane.setAlignment(rightNavButtons, Pos.CENTER_RIGHT);
         BorderPane.setAlignment(Goback, Pos.BASELINE_CENTER);
-
 
         // Add ImageView and navigation buttons to BorderPane
         root.setCenter(imageView);
@@ -98,39 +95,49 @@ public class fivetendetailsgui {
         primaryStage.show();
 
         // Keep the fivetendetailsguiDecorator open in a separate thread
-        // Keep the fivetendetailsguiDecorator open in a separate thread
-new Thread(() -> {
-    Platform.runLater(() -> {
-        fivetendetailsguiDecorator decorator = new fivetendetailsguiDecorator(new fivetendetailsgui());
-        decorator.showBuildingDetails(primaryStage, buildingName);
-    });
-}).start();
-
+        new Thread(() -> {
+            threadRunning = true; // Start the thread
+            while (threadRunning) {
+                try {
+                    Thread.sleep(100); // Adjust the sleep time according to your needs
+                    Platform.runLater(() -> checkForImageChange(primaryStage, imageView, buildingName));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
+    // Method to check for image change
+    private static void checkForImageChange(Stage primaryStage, ImageView imageView, String buildingName) {
+        // Implement logic to check for image change and add necessary objects as the image loads
+        // For simplicity, this method currently does nothing except print a message
+        System.out.println("Checking for image change...");
+    }
+
+    // Method to create the "Return to Building Options" button
     private static VBox createGobackButton(Stage primaryStage) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-    
+
         // Create goback button
         Button goback = new Button("Return to Building Options");
         goback.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
         goback.setOnAction(event -> {
-             BuildingOptionsGUI buildingOptionsGUI = new BuildingOptionsGUI();
-           
+            BuildingOptionsGUI buildingOptionsGUI = new BuildingOptionsGUI();
             buildingOptionsGUI.start(primaryStage);
-    
+            threadRunning = false; // Stop the thread when returning to building options
         });
-    
+
         navButtons.getChildren().add(goback);
         return navButtons;
     }
-    
 
+    // Method to create the left navigation buttons
     private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-    
+
         // Create left button
         Button leftButton = new Button("←");
         leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
@@ -141,15 +148,16 @@ new Thread(() -> {
                 applyFadeTransition(imageView, true);
             }
         });
-    
+
         navButtons.getChildren().add(leftButton);
         return navButtons;
     }
-    
+
+    // Method to create the right navigation buttons
     private static VBox createRightNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-    
+
         // Create right button
         Button rightButton = new Button("→");
         rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
@@ -160,16 +168,17 @@ new Thread(() -> {
                 applyFadeTransition(imageView, false);
             }
         });
-    
+
         navButtons.getChildren().add(rightButton);
         return navButtons;
     }
-    
+
+    // Method to apply fade transition to the image
     private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(TRANSITION_DURATION), imageView);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
-    
+
         TranslateTransition translateTransition;
         if (isLeft) {
             translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
@@ -178,13 +187,13 @@ new Thread(() -> {
             translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
             translateTransition.setToX(imageView.getFitWidth() / 2);
         }
-    
+
         ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
         parallelTransition.setOnFinished(event -> {
             imageView.setOpacity(1.0); // Reset opacity after transition
             imageView.setTranslateX(0); // Reset translation after transition
         });
-    
+
         parallelTransition.play();
     }
 
