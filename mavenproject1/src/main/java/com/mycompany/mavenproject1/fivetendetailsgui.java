@@ -1,6 +1,7 @@
 package com.mycompany.mavenproject1;
 
 import javafx.animation.FadeTransition;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ public class fivetendetailsgui {
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background-color: rgba(0, 0, 128, 0.5); -fx-padding: 20px;");
+        root.setStyle("-fx-background-color: royalblue; -fx-padding: 20px;");
 
         // Load images
         List<Image> images = new ArrayList<>();
@@ -37,14 +38,16 @@ public class fivetendetailsgui {
 
         // Create ImageView
         ImageView imageView = new ImageView();
-        imageView.setFitWidth(600); // Increased width
-        imageView.setFitHeight(400); // Increased height
         imageView.setPreserveRatio(true);
         imageView.setImage(images.get(0)); // Set initial image
 
+        // Bind fit width and height of ImageView to size of BorderPane's center region
+        imageView.fitWidthProperty().bind(root.widthProperty().divide(1.5));
+        imageView.fitHeightProperty().bind(root.heightProperty().divide(1.5));
+
         // Create navigation buttons
-        VBox leftNavButtons = createNavigationButtons(images, imageView);
-        VBox rightNavButtons = createNavigationButtons(images, imageView);
+        VBox leftNavButtons = createLeftNavigationButtons(images, imageView);
+        VBox rightNavButtons = createRightNavigationButtons(images, imageView);
         leftNavButtons.setAlignment(Pos.CENTER);
         rightNavButtons.setAlignment(Pos.CENTER);
         leftNavButtons.setSpacing(20);
@@ -58,7 +61,7 @@ public class fivetendetailsgui {
         root.setRight(rightNavButtons);
 
         // Create a Scene
-        Scene scene = new Scene(root, 800, 500); // Increased scene size
+        Scene scene = new Scene(root, 800, 500); // Initial scene size
 
         // Set the scene and show the stage
         primaryStage.setScene(scene);
@@ -66,7 +69,7 @@ public class fivetendetailsgui {
         primaryStage.show();
     }
 
-    private static VBox createNavigationButtons(List<Image> images, ImageView imageView) {
+    private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
 
@@ -81,6 +84,14 @@ public class fivetendetailsgui {
             }
         });
 
+        navButtons.getChildren().add(leftButton);
+        return navButtons;
+    }
+
+    private static VBox createRightNavigationButtons(List<Image> images, ImageView imageView) {
+        VBox navButtons = new VBox();
+        navButtons.setStyle("-fx-background-color: transparent;");
+
         // Create right button
         Button rightButton = new Button("→");
         rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
@@ -92,7 +103,7 @@ public class fivetendetailsgui {
             }
         });
 
-        navButtons.getChildren().addAll(leftButton, rightButton);
+        navButtons.getChildren().add(rightButton);
         return navButtons;
     }
 
