@@ -1,12 +1,12 @@
 package com.mycompany.mavenproject1;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -21,7 +21,7 @@ public class fivetendetailsgui {
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create VBox layout
         VBox root = new VBox(10);
-        root.setPrefSize(400, 300);
+        root.setPrefSize(600, 400); // Increased size
         root.setStyle("-fx-background-color: lightgray; -fx-padding: 20px;");
 
         // Load images
@@ -31,30 +31,16 @@ public class fivetendetailsgui {
 
         // Create ImageView
         ImageView imageView = new ImageView();
-        imageView.setFitWidth(300);
-        imageView.setFitHeight(200);
+        imageView.setFitWidth(500); // Increased width
+        imageView.setFitHeight(300); // Increased height
         imageView.setPreserveRatio(true);
         imageView.setImage(images.get(0)); // Set initial image
 
-        // Handle arrow key presses to switch images
-        int[] currentIndex = {0}; // Using an array to hold index for mutable reference
-        root.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case LEFT:
-                    currentIndex[0] = Math.max(0, currentIndex[0] - 1);
-                    break;
-                case RIGHT:
-                    currentIndex[0] = Math.min(images.size() - 1, currentIndex[0] + 1);
-                    break;
-                default:
-                    break;
-            }
-            imageView.setImage(images.get(currentIndex[0]));
-            applyFadeTransition(imageView);
-        });
+        // Create navigation buttons
+        HBox navButtons = createNavigationButtons(images, imageView);
 
-        // Add ImageView to VBox
-        root.getChildren().add(imageView);
+        // Add ImageView and navigation buttons to VBox
+        root.getChildren().addAll(imageView, navButtons);
 
         // Create a Scene
         Scene scene = new Scene(root);
@@ -63,6 +49,34 @@ public class fivetendetailsgui {
         primaryStage.setScene(scene);
         primaryStage.setTitle(buildingName + " Details");
         primaryStage.show();
+    }
+
+    private static HBox createNavigationButtons(List<Image> images, ImageView imageView) {
+        HBox navButtons = new HBox(10);
+        navButtons.setStyle("-fx-padding: 10px;");
+
+        // Create left button
+        Button leftButton = new Button("←");
+        leftButton.setOnAction(event -> {
+            int currentIndex = images.indexOf(imageView.getImage());
+            if (currentIndex > 0) {
+                imageView.setImage(images.get(currentIndex - 1));
+                applyFadeTransition(imageView);
+            }
+        });
+
+        // Create right button
+        Button rightButton = new Button("→");
+        rightButton.setOnAction(event -> {
+            int currentIndex = images.indexOf(imageView.getImage());
+            if (currentIndex < images.size() - 1) {
+                imageView.setImage(images.get(currentIndex + 1));
+                applyFadeTransition(imageView);
+            }
+        });
+
+        navButtons.getChildren().addAll(leftButton, rightButton);
+        return navButtons;
     }
 
     private static void applyFadeTransition(ImageView imageView) {
