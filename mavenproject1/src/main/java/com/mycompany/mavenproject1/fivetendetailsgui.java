@@ -25,6 +25,25 @@ public class fivetendetailsgui {
 
         // Load images
         List<Image> images = new ArrayList<>();
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Entrance.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor1.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor2.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor3.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor4.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor5.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor6.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor7.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor8.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor10.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor11.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor12.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor13.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor14.png"));
+
+
+
+
+
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
         images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
