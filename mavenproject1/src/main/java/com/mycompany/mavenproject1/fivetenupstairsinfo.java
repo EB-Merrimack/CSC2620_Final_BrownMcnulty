@@ -1,12 +1,7 @@
 package com.mycompany.mavenproject1;
 
-/**
- * fivetenupstairsinfo
- */
+import javafx.stage.Stage;
 
- //decorator class for the fivetendetailsgui
 public interface fivetenupstairsinfo {
-
-    
+    void showBuildingDetails(Stage primaryStage, String buildingName);
 }
-
