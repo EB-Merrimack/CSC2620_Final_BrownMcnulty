@@ -65,6 +65,7 @@ public class BuildingOptionsGUI extends Application {
                 tourButton.setOnAction(event -> {
                     // Perform actions specific to Main Campus interactive tour
                     System.out.println("Initiating Main Campus interactive tour...");
+                    maincampusgui.showBuildingDetails(primaryStage, "Main Campus");
                 });
                 tourButton.setVisible(true); // Show the button when Main Campus checkbox is selected
             }
