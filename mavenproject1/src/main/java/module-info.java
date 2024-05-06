@@ -4,6 +4,7 @@ module com.mycompany.mavenproject1 {
     requires javafx.graphics;
     requires org.json;
     requires java.desktop;
+    requires javafx.base;
 
     opens com.mycompany.mavenproject1 to javafx.fxml;
     exports com.mycompany.mavenproject1;

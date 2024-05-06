@@ -24,8 +24,23 @@ public class fivetendetailsguiDecorator implements fivetenupstairsinfo {
         // Call the original showBuildingDetails method
         fivetendetailsgui.showBuildingDetails(primaryStage, buildingName);
 
-        // Add MC logo overlay and pop-up functionality
-        addMCLogoOverlay(primaryStage);
+        // Check if the specified image is displayed
+        Image specifiedImage = new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png");
+        if (isImageDisplayed(primaryStage, specifiedImage)) {
+            System.out.println("Specified image is displayed.");
+            // Add MC logo overlay and pop-up functionality
+            addMCLogoOverlay(primaryStage);
+        } else {
+            System.out.println("Specified image is NOT displayed.");
+        }
+    }
+
+    private boolean isImageDisplayed(Stage primaryStage, Image image) {
+        BorderPane root = (BorderPane) primaryStage.getScene().getRoot();
+        ImageView imageView = (ImageView) root.getCenter();
+        boolean result = imageView.getImage().equals(image);
+        System.out.println("Image displayed: " + result);
+        return result;
     }
 
     private void addMCLogoOverlay(Stage primaryStage) {
@@ -36,7 +51,7 @@ public class fivetendetailsguiDecorator implements fivetenupstairsinfo {
         AnchorPane overlay = new AnchorPane();
 
         // MC logo image
-        Image mcLogoImage = new Image("mavenproject1\\target\\classes\\photos\\mclogo.png");
+        Image mcLogoImage = new Image("/photos/mclogo.png"); // Update path
         ImageView mcLogo = new ImageView(mcLogoImage);
         mcLogo.setFitWidth(100); // Adjust size as needed
         mcLogo.setPreserveRatio(true);
