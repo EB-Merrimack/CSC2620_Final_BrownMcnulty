@@ -3,6 +3,7 @@ package com.mycompany.mavenproject1;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -50,17 +51,22 @@ public class fivetendetailsgui {
         // Create navigation buttons
         VBox leftNavButtons = createLeftNavigationButtons(images, imageView);
         VBox rightNavButtons = createRightNavigationButtons(images, imageView);
+        VBox Goback=createGobackButton(primaryStage);
+        Goback.setAlignment(Pos.CENTER);
         leftNavButtons.setAlignment(Pos.CENTER);
         rightNavButtons.setAlignment(Pos.CENTER);
         leftNavButtons.setSpacing(20);
         rightNavButtons.setSpacing(20);
         BorderPane.setAlignment(leftNavButtons, Pos.CENTER_LEFT);
         BorderPane.setAlignment(rightNavButtons, Pos.CENTER_RIGHT);
+        BorderPane.setAlignment(Goback, Pos.BASELINE_CENTER);
+
 
         // Add ImageView and navigation buttons to BorderPane
         root.setCenter(imageView);
         root.setLeft(leftNavButtons);
         root.setRight(rightNavButtons);
+        root.setBottom(Goback);
 
         // Create a Scene
         Scene scene = new Scene(root, 800, 500); // Initial scene size
@@ -70,6 +76,25 @@ public class fivetendetailsgui {
         primaryStage.setTitle(buildingName + " Details");
         primaryStage.show();
     }
+
+    private static VBox createGobackButton(Stage primaryStage) {
+        VBox navButtons = new VBox();
+        navButtons.setStyle("-fx-background-color: transparent;");
+    
+        // Create goback button
+        Button goback = new Button("Return to Building Options");
+        goback.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+        goback.setOnAction(event -> {
+             BuildingOptionsGUI buildingOptionsGUI = new BuildingOptionsGUI();
+           
+            buildingOptionsGUI.start(primaryStage);
+    
+        });
+    
+        navButtons.getChildren().add(goback);
+        return navButtons;
+    }
+    
 
     private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView) {
         VBox navButtons = new VBox();
@@ -131,5 +156,6 @@ public class fivetendetailsgui {
     
         parallelTransition.play();
     }
+
     
 }
