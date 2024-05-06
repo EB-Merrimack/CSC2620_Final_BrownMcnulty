@@ -17,10 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class fivetendetailsgui {
-
+public class fivetendetailsgui implements BuildingDetailsListener {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
-
     private static volatile boolean threadRunning = false; // Flag to control the thread execution
 
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
@@ -29,6 +27,18 @@ public class fivetendetailsgui {
         root.setStyle("-fx-background-color: royalblue; -fx-padding: 20px;");
 
         // Load images
+        List<Image> images = new ArrayList<>();
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor5.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor6.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor7.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor8.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor10.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor11.png"));
+        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor12.png"));
+
         List<Image> downstairsimages = new ArrayList<>();
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Entrance.png"));
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor1.png"));
@@ -45,18 +55,6 @@ public class fivetendetailsgui {
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor13.png"));
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor14.png"));
 
-        // Add distinction between up and down
-        List<Image> images = new ArrayList<>();
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor5.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor6.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor7.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor8.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor10.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor11.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor12.png"));
 
         // Create ImageView
         ImageView imageView = new ImageView();
@@ -68,8 +66,17 @@ public class fivetendetailsgui {
         imageView.fitHeightProperty().bind(root.heightProperty().divide(1.5));
 
         // Create navigation buttons
-        VBox leftNavButtons = createLeftNavigationButtons(images, imageView);
-        VBox rightNavButtons = createRightNavigationButtons(images, imageView);
+        VBox leftNavButtons = createLeftNavigationButtons(images, imageView, imagePath -> {
+            // Implement logic to handle image changes directly inside the lambda expression
+            System.out.println("Displayed image changed: " + imagePath);
+            // You can add your own custom logic here
+        });
+        
+        VBox rightNavButtons = createRightNavigationButtons(images, imageView, imagePath -> {
+            // Implement logic to handle image changes directly inside the lambda expression
+            System.out.println("Displayed image changed: " + imagePath);
+            // You can add your own custom logic here
+        });
         VBox Goback = createGobackButton(primaryStage);
         Goback.setAlignment(Pos.CENTER);
         leftNavButtons.setAlignment(Pos.CENTER);
@@ -133,45 +140,49 @@ public class fivetendetailsgui {
         return navButtons;
     }
 
-    // Method to create the left navigation buttons
-    private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView) {
-        VBox navButtons = new VBox();
-        navButtons.setStyle("-fx-background-color: transparent;");
+    // Method to create the left navigation buttons// Method to create the left navigation buttons
+private static VBox createLeftNavigationButtons(List<Image> images, ImageView imageView, BuildingDetailsListener listener) {
+    VBox navButtons = new VBox();
+    navButtons.setStyle("-fx-background-color: transparent;");
 
-        // Create left button
-        Button leftButton = new Button("←");
-        leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
-        leftButton.setOnAction(event -> {
-            int currentIndex = images.indexOf(imageView.getImage());
-            if (currentIndex > 0) {
-                imageView.setImage(images.get(currentIndex - 1));
-                applyFadeTransition(imageView, true);
-            }
-        });
+    // Create left button
+    Button leftButton = new Button("←");
+    leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+    leftButton.setOnAction(event -> {
+        int currentIndex = images.indexOf(imageView.getImage());
+        if (currentIndex > 0) {
+            Image newImage = images.get(currentIndex - 1);
+            imageView.setImage(newImage);
+            applyFadeTransition(imageView, true);
+            listener.onImageDisplayedChanged(newImage.getUrl()); // Notify listener with the new image path
+        }
+    });
 
-        navButtons.getChildren().add(leftButton);
-        return navButtons;
-    }
+    navButtons.getChildren().add(leftButton);
+    return navButtons;
+}
 
-    // Method to create the right navigation buttons
-    private static VBox createRightNavigationButtons(List<Image> images, ImageView imageView) {
-        VBox navButtons = new VBox();
-        navButtons.setStyle("-fx-background-color: transparent;");
+// Method to create the right navigation buttons
+private static VBox createRightNavigationButtons(List<Image> images, ImageView imageView, BuildingDetailsListener listener) {
+    VBox navButtons = new VBox();
+    navButtons.setStyle("-fx-background-color: transparent;");
 
-        // Create right button
-        Button rightButton = new Button("→");
-        rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
-        rightButton.setOnAction(event -> {
-            int currentIndex = images.indexOf(imageView.getImage());
-            if (currentIndex < images.size() - 1) {
-                imageView.setImage(images.get(currentIndex + 1));
-                applyFadeTransition(imageView, false);
-            }
-        });
+    // Create right button
+    Button rightButton = new Button("→");
+    rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+    rightButton.setOnAction(event -> {
+        int currentIndex = images.indexOf(imageView.getImage());
+        if (currentIndex < images.size() - 1) {
+            Image newImage = images.get(currentIndex + 1);
+            imageView.setImage(newImage);
+            applyFadeTransition(imageView, false);
+            listener.onImageDisplayedChanged(newImage.getUrl()); // Notify listener with the new image path
+        }
+    });
 
-        navButtons.getChildren().add(rightButton);
-        return navButtons;
-    }
+    navButtons.getChildren().add(rightButton);
+    return navButtons;
+}
 
     // Method to apply fade transition to the image
     private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
@@ -197,4 +208,15 @@ public class fivetendetailsgui {
         parallelTransition.play();
     }
 
+    @Override
+    public void onImageDisplayedChanged(String imagePath) {
+        // Implement the logic to handle the change in displayed image
+        System.out.println("Displayed image changed: " + imagePath);
+        // You can add your own custom logic here, such as updating UI components, etc.
+    }
+    
+}
+
+interface BuildingDetailsListener {
+    void onImageDisplayedChanged(String imagePath);
 }
