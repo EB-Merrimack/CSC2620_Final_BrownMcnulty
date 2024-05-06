@@ -1,21 +1,22 @@
 package com.mycompany.mavenproject1;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Application;
-import javafx.beans.binding.Bindings;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class fivetendetailsgui {
 
@@ -94,6 +95,12 @@ public class fivetendetailsgui {
         primaryStage.setScene(scene);
         primaryStage.setTitle(buildingName + " Details");
         primaryStage.show();
+
+        // Keep the fivetendetailsguiDecorator open in a separate thread
+        new Thread(() -> {
+            fivetendetailsguiDecorator decorator = new fivetendetailsguiDecorator(new fivetendetailsgui());
+            decorator.showBuildingDetails(primaryStage, buildingName);
+        }).start();
     }
 
     private static VBox createGobackButton(Stage primaryStage) {
@@ -176,5 +183,4 @@ public class fivetendetailsgui {
         parallelTransition.play();
     }
 
-    
 }
