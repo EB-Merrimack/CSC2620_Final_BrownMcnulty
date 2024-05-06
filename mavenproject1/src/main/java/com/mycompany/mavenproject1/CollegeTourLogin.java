@@ -37,11 +37,12 @@ public class CollegeTourLogin extends Application {
     public Parent getRoot(Stage primaryStage) {
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
+    
+        // Apply repeating image border
+        root.setStyle("-fx-background-image: url('mavenproject1/photos/mclogo.png'); " +
+                      "-fx-background-repeat: repeat; " +
+                      "-fx-padding: 20px;"); // Adjust padding as needed
 
-        Button skipButton = new Button("Skip");
-        skipButton.setOnAction(e -> {
-            exitApplication(primaryStage);
-        });
 
         String email = promptForValidEmail();
         if (email.isEmpty()) {
@@ -148,6 +149,7 @@ public class CollegeTourLogin extends Application {
 
         while (!isValid) {
             TextInputDialog emailDialog = new TextInputDialog();
+            
             emailDialog.setTitle("College Tour Login");
             emailDialog.setHeaderText("Welcome to the Merrimack Computer Science Interactive Tour!\n" +
                 "If you would not like to share your information, please X out of this page to directly start the tour.\n" +
