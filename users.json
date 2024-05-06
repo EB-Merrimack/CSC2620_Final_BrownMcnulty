@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Emily",
+    "location": "Massachusetts",
+    "email": "Brownemi@merrimack.edu",
+    "role": "student",
+    "grade": "junior"
+  },
+{
+  "name": "test",
+  "location": "mass",
+  "email": "test@gmail.com",
+  "role": "student",
+  "grade": "seinor"
+}
+,
+{
+  "name": "test",
+  "location": "massachusets",
+  "email": "testing@gmail.com",
+  "role": "student",
+  "grade": "junior"
+}
+,
+{
+  "name": "tester",
+  "location": "mass",
+  "email": "testing@yahoo.com",
+  "role": "parent"
+}
+,
+{
+  "name": "tester",
+  "location": "nh",
+  "email": "testing4@gmail.com",
+  "role": "parent"
+}
+,
+{
+  "name": "tink",
+  "location": "neverland",
+  "email": "tinkerbell@gmail.com",
+  "role": "student",
+  "grade": "11"
+}
+,
+{
+  "name": "wendy",
+  "location": "neverland",
+  "email": "wendy@neverland.com",
+  "role": "student",
+  "grade": "junior"
+}
+,
+{
+  "name": "parent",
+  "location": "mass",
+  "email": "parenttest@gmail.con",
+  "role": "parent"
+}
+]
