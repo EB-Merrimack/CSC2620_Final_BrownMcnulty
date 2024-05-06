@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 public class fivetendetailsguiDecorator implements fivetenupstairsinfo {
     private fivetendetailsgui fivetendetailsgui;
+    private BuildingDetailsListener buildingDetailsListener;
 
     public fivetendetailsguiDecorator(fivetendetailsgui fivetendetailsgui) {
         this.fivetendetailsgui = fivetendetailsgui;
@@ -28,6 +29,8 @@ public class fivetendetailsguiDecorator implements fivetenupstairsinfo {
         Image specifiedImage = new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png");
         if (isImageDisplayed(primaryStage, specifiedImage)) {
             System.out.println("Specified image is displayed.");
+            // Notify listener of image change
+            notifyImageDisplayedChanged(specifiedImage.getUrl());
             // Add MC logo overlay and pop-up functionality
             addMCLogoOverlay(primaryStage);
         } else {
@@ -93,5 +96,16 @@ public class fivetendetailsguiDecorator implements fivetenupstairsinfo {
 
         // Show pop-up message
         messageStage.show();
+    }
+
+    @Override
+    public void setBuildingDetailsListener(BuildingDetailsListener listener) {
+        this.buildingDetailsListener = listener;
+    }
+
+    private void notifyImageDisplayedChanged(String imagePath) {
+        if (buildingDetailsListener != null) {
+            buildingDetailsListener.onImageDisplayedChanged(imagePath);
+        }
     }
 }
