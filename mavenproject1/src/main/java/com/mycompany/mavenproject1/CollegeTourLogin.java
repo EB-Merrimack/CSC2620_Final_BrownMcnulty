@@ -149,8 +149,11 @@ public class CollegeTourLogin extends Application {
         while (!isValid) {
             TextInputDialog emailDialog = new TextInputDialog();
             emailDialog.setTitle("College Tour Login");
-            emailDialog.setHeaderText("Please provide your contact email:");
+            emailDialog.setHeaderText("Welcome to the Merrimack Computer Science Interactive Tour!\n" +
+                "If you would not like to share your information, please X out of this page to directly start the tour.\n" +
+                "Otherwise, please provide your contact email:");
             emailDialog.setContentText("Email:");
+            
 
             Optional<String> emailResult = emailDialog.showAndWait();
             if (emailResult.isPresent()) {
