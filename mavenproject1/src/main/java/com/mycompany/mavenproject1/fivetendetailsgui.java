@@ -18,7 +18,7 @@ import java.util.List;
 
 public class fivetendetailsgui {
 
-    private static final int TRANSITION_DURATION = 500; // Duration for transition in milliseconds
+    private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
 
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
