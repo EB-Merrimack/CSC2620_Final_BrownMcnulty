@@ -21,6 +21,12 @@ import javafx.util.Duration;
 
 public class Mavenproject1 extends Application {
 
+    /**
+     * Overrides the start method from the Application class to create the initial scene.
+     *
+     * @param  primaryStage  the primary stage for the JavaFX application
+     */
+    
     @Override
     public void start(Stage primaryStage) {
         // Create the initial scene
@@ -99,6 +105,10 @@ continueText.setOnMouseClicked(e -> {
         primaryStage.show();
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
