@@ -17,10 +17,16 @@ class MainCampusInfo implements BuildingInfo {
 class EastCampusInfo implements BuildingInfo {
     @Override
     public String getInfo() {
-        return "East Campus: Comprising buildings 510 and 530 Turnpike Street.";
+        return "East Campus: Comprising buildings 510 Turnpike Street the headquarters for all things computer science.";
     }
 }
 
+class ComputerScienceProgram implements BuildingInfo{
+    @Override
+    public String getInfo(){
+        return "Let's find out more about the computer science program and it's staff!";
+    }
+}
 // Decorator class
 class BuildingInfoDecorator implements BuildingInfo {
     private final BuildingInfo buildingInfo;

@@ -19,17 +19,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class maincampusgui {
-    private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
+public class ComputerScienceProgramgui {
 
-    public static void showBuildingDetails(Stage primaryStage, String buildingName) {
+   private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
+
+    public static void showBuildingDetails(Stage primaryStage) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: royalblue; -fx-padding: 20px;");
 
         // Load images
         List<ImageWithCaptions> images = new ArrayList<>();
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/MapOfCampus.png", "Map of main campus"));
+        images.add(new ImageWithCaptions("/photos/ComputerScienceProgram/yearonecuriculm.png", "As a freshman you will be introduced to Java, Learn about the Structure of code and be able to fufill general education requirments "));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Entrance.png", "Campus Entrance"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Arcidi.png", "Arcidi Center: Tour Check In Point"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/BowlingAlley.png", "Bowling Alley in the Student Union"));
@@ -205,3 +206,4 @@ public class maincampusgui {
         parallelTransition.play();
     }
 }
+
