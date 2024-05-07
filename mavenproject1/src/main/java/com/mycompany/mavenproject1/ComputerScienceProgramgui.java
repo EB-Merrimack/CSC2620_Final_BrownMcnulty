@@ -30,11 +30,11 @@ public class ComputerScienceProgramgui {
 
         // Load images
         List<ImageWithCaptions> images = new ArrayList<>();
-        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearOneCurriculum.png", "As a freshman you will be introduced to Java, learn about the structure of code and be able to fufill general education requirments"));
-        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearTwoCurriculum.png", "As a sophomore, you will begin to take some upper level computer courses, focusing on data structures and object design"));
-        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearThreeCurriculum.png", "As a junior, you will have more flexibility in class choice and can start choosing some elective classes"));
-        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearFourCurriculum.png", "As a senior, you will take most elective courses while also completing a Senior Capstone project"));
-        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/MainFaculty.png", "These are some of the faculty that work in the department and teach courses here at Merrimack"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Curriculum-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearOneCurriculum.png", "As a freshman you will be introduced to Java, learn about the structure of code and be able to fufill general education requirments"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Curriculum-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearTwoCurriculum.png", "As a sophomore, you will begin to take some upper level computer courses, focusing on data structures and object design"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Curriculum-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearThreeCurriculum.png", "As a junior, you will have more flexibility in class choice and can start choosing some elective classes"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Curriculum-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearFourCurriculum.png", "As a senior, you will take most elective courses while also completing a Senior Capstone project"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Curriculum-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/MainFaculty.png", "These are some of the faculty that work in the department and teach courses here at Merrimack"));
 
 
         ImageView imageView = new ImageView();
