@@ -32,12 +32,14 @@ public class maincampusgui {
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/MapOfCampus.png", "Map of main campus"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Entrance.png", "Campus Entrance"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Arcidi.png", "Arcidi Center: Tour Check In Point"));
+        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/StudentUnion.png", "Student Union: Location of Monica's Kitchen, the bowling alley, esports center, and the Collegiate church of Christ the Teacher "));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/BowlingAlley.png", "Bowling Alley in the Student Union"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Mcquade.png", "McQuade Library"));
+        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Mcquade.png", "McQuade Library: Location of the Mack Mart, tech bar, O'brien Center, math and writing centers, and accessibilities services"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Sak.png", "Sakowich Campus Center"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Sparky's.png", "Sparky's: Main Dining Hall On Campus"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Den.png", "Warrior's Den: Another Dining Option Within The Sakowich Center"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Gym.png", "Gym"));
+        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Hub.png", "The Hub: The office of student involvement"));
 
         ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true);
