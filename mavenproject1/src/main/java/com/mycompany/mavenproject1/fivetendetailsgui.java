@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class fivetendetailsgui implements BuildingDetailsListener {
+public class fivetendetailsgui {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
     private static volatile boolean threadRunning = false; // Flag to control the thread execution
     private static boolean isUpstairsMode = false; // Flag to track the current mode
@@ -133,7 +133,7 @@ imageStackPane.getChildren().add(captionLabel);
         goUpstairsButton.setOnAction(event -> {
             toppane.getChildren().remove(goUpstairsButton); // Remove the "Go Upstairs" button
             toppane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
-
+            captionLabel.setText(upstairsimages.get(0).getCaption());
     
         isUpstairsMode = true;
         imageView.setImage(upstairsimages.get(0).getImage()); // Set initial image to the first upstairs image
@@ -149,7 +149,7 @@ imageStackPane.getChildren().add(captionLabel);
         goDownstairsButton.setOnAction(event -> {
             toppane.getChildren().remove(goDownstairsButton); // Remove the "Go Downstairs" button
             toppane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button
-    
+            captionLabel.setText(downstairsimages.get(0).getCaption());
             isUpstairsMode = false;
         imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, downstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
@@ -172,18 +172,6 @@ imageStackPane.getChildren().add(captionLabel);
         primaryStage.setTitle(buildingName + " Details");
         primaryStage.show();
     
-        // Keep the fivetendetailsguiDecorator open in a separate thread
-        new Thread(() -> {
-            threadRunning = true; // Start the thread
-            while (threadRunning) {
-                try {
-                    Thread.sleep(5000); // Adjust the sleep time according to your needs
-                    Platform.runLater(() -> checkForImageChange(primaryStage, imageView, buildingName));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
     
     private static void configureNavButtons(VBox leftNavButtons, VBox rightNavButtons, List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
@@ -218,10 +206,6 @@ imageStackPane.getChildren().add(captionLabel);
     }
 
 
-    // Method to check for image change
-    private static void checkForImageChange(Stage primaryStage, ImageView imageView, String buildingName) {
-        // TODO Auto-generated method stub
-    }
 
     // Method to create the "Return to Building Options" button
     private static VBox createGobackButton(Stage primaryStage) {
@@ -321,12 +305,6 @@ imageStackPane.getChildren().add(captionLabel);
         parallelTransition.play();
     }
 
-    @Override
-    public void onImageDisplayedChanged(String imagePath) {
-        // Implement the logic to handle the change in displayed image
-        System.out.println("Displayed image changed: " + imagePath);
-        // You can add your own custom logic here, such as updating UI components, etc.
-    }
     
 }
 
