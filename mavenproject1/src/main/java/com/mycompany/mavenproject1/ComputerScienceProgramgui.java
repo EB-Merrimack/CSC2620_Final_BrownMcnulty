@@ -30,15 +30,12 @@ public class ComputerScienceProgramgui {
 
         // Load images
         List<ImageWithCaptions> images = new ArrayList<>();
-        images.add(new ImageWithCaptions("/photos/ComputerScienceProgram/yearonecuriculm.png", "As a freshman you will be introduced to Java, Learn about the Structure of code and be able to fufill general education requirments "));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Entrance.png", "Campus Entrance"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Arcidi.png", "Arcidi Center: Tour Check In Point"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/BowlingAlley.png", "Bowling Alley in the Student Union"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Mcquade.png", "McQuade Library"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Sak.png", "Sakowich Campus Center"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Sparky's.png", "Sparky's: Main Dining Hall On Campus"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Den.png", "Warrior's Den: Another Dining Option Within The Sakowich Center"));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Gym.png", "Gym"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearOneCurriculum.png", "As a freshman you will be introduced to Java, learn about the structure of code and be able to fufill general education requirments"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearTwoCurriculum.png", "As a sophomore, you will begin to take some upper level computer courses, focusing on data structures and object design"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearThreeCurriculum.png", "As a junior, you will have more flexibility in class choice and can start choosing some elective classes"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/YearFourCurriculum.png", "As a senior, you will take most elective courses while also completing a Senior Capstone project"));
+        images.add(new ImageWithCaptions("photos/CSC2620 Computer Science Curriculum Overview-20240507T161032Z-001/CSC2620 Computer Science Curriculum Overview/MainFaculty.png", "These are some of the faculty that work in the department and teach courses here at Merrimack"));
+
 
         ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true);
