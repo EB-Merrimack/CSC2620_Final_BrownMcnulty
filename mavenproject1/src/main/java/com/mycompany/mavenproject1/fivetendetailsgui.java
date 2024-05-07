@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -79,10 +80,15 @@ public class fivetendetailsgui implements BuildingDetailsListener {
     // Bind caption label position to image position
     StackPane.setAlignment(captionLabel, Pos.BOTTOM_CENTER);
 
-    // Set initial caption
-    captionLabel.setText(downstairsimages.get(0).getCaption());
+  // Assuming captionLabel is a Text node and images is a List<ImageWithCaptions>
+String styledCaption = downstairsimages.get(0).getCaption();
+captionLabel.setStyle("-fx-text-fill: gold; -fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 14px;");
+Glow glow = new Glow();
+glow.setLevel(0.8); // Adjust the glow level as needed
+captionLabel.setEffect(glow);
+captionLabel.setText(styledCaption);
+imageStackPane.getChildren().add(captionLabel);
 
-    imageStackPane.getChildren().add(captionLabel);
 
     // Create navigation buttons
     VBox leftNavButtons = createLeftNavigationButtons(downstairsimages, imageView, captionLabel, caption -> {
@@ -127,6 +133,7 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         goUpstairsButton.setOnAction(event -> {
             toppane.getChildren().remove(goUpstairsButton); // Remove the "Go Upstairs" button
             toppane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
+
     
         isUpstairsMode = true;
         imageView.setImage(upstairsimages.get(0).getImage()); // Set initial image to the first upstairs image
@@ -146,11 +153,12 @@ public class fivetendetailsgui implements BuildingDetailsListener {
             isUpstairsMode = false;
         imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, downstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
+            
             @Override
             public void onImageDisplayedChanged(String caption) {
                 captionLabel.setText(caption); // Update the caption
             System.out.println("Displayed caption: " + caption);
-            // Add custom logic here if needed
+          
             }
         }); // Update navigation buttons
     });
