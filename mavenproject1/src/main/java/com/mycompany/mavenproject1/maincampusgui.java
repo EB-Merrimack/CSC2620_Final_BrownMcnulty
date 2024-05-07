@@ -68,11 +68,13 @@ public class maincampusgui {
 
     // Create navigation buttons
     VBox leftNavButtons = createLeftNavigationButtons(images, imageView, captionLabel, caption -> {
+        captionLabel.setText(caption);
         System.out.println("Displayed caption: " + caption);
         // Add custom logic here if needed
     });
 
     VBox rightNavButtons = createRightNavigationButtons(images, imageView, captionLabel, caption -> {
+        captionLabel.setText(caption);
         System.out.println("Displayed caption: " + caption);
         // Add custom logic here if needed
     });
