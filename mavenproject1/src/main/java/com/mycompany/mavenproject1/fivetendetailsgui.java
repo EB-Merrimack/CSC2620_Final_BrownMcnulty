@@ -114,21 +114,20 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         Button goDownstairsButton = new Button("Go Downstairs");
         goDownstairsButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
     
-        VBox bottomPane = new VBox();
-        bottomPane.setAlignment(Pos.CENTER);
-        bottomPane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button initially
-        bottomPane.getChildren().add(Goback);
-        root.setBottom(bottomPane);
-    
+      
+        VBox toppane= new VBox();
+        toppane.setAlignment(Pos.TOP_CENTER);
+        toppane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button initially
+        toppane.getChildren().add(Goback);
         // Add ImageView and navigation buttons to BorderPane
         root.setCenter(imageStackPane); // Use StackPane containing ImageView and caption label
         root.setLeft(leftNavButtons);
         root.setRight(rightNavButtons);
-        root.setBottom(bottomPane);
+        root.setTop(toppane);
     
         goUpstairsButton.setOnAction(event -> {
-            bottomPane.getChildren().remove(goUpstairsButton); // Remove the "Go Upstairs" button
-            bottomPane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
+            toppane.getChildren().remove(goUpstairsButton); // Remove the "Go Upstairs" button
+            toppane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
     
         isUpstairsMode = true;
         imageView.setImage(upstairsimages.get(0).getImage()); // Set initial image to the first upstairs image
@@ -142,8 +141,8 @@ public class fivetendetailsgui implements BuildingDetailsListener {
     });
     
         goDownstairsButton.setOnAction(event -> {
-            bottomPane.getChildren().remove(goDownstairsButton); // Remove the "Go Downstairs" button
-            bottomPane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button
+            toppane.getChildren().remove(goDownstairsButton); // Remove the "Go Downstairs" button
+            toppane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button
     
             isUpstairsMode = false;
         imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
