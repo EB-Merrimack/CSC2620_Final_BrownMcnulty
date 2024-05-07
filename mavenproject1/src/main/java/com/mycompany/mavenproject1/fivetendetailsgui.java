@@ -116,9 +116,8 @@ public class fivetendetailsgui implements BuildingDetailsListener {
     
       
         VBox toppane= new VBox();
-        toppane.setAlignment(Pos.TOP_CENTER);
-        toppane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button initially
-        toppane.getChildren().add(Goback);
+       
+        toppane.getChildren().addAll(goUpstairsButton,Goback); // Add the "Go Upstairs" button initially
         // Add ImageView and navigation buttons to BorderPane
         root.setCenter(imageStackPane); // Use StackPane containing ImageView and caption label
         root.setLeft(leftNavButtons);
