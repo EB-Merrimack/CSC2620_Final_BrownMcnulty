@@ -30,8 +30,8 @@ public class ComputerScienceProgramgui {
 
         // Load images
         List<ImageWithCaptions> images = new ArrayList<>();
-        images.add(new ImageWithCaptions("/photos/ComputerScienceProgram/yearonecuriculm.png", "As a freshman you will be introduced to Java, Learn about the Structure of code and be able to fufill general education requirments "));
-        images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Entrance.png", "Campus Entrance"));
+        images.add(new ImageWithCaptions("/photos/ComputerScienceProgram/yearonecuriculm.png", "As a freshman you will be introduced to Java, Learn about the Structure of code and be able to fulfill general education requirements"));
+        images.add(new ImageWithCaptions("/photos/ComputerScienceProgram/yeartwocuriculm.png", "As a Sophmore "));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Arcidi.png", "Arcidi Center: Tour Check In Point"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/BowlingAlley.png", "Bowling Alley in the Student Union"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Mcquade.png", "McQuade Library"));
