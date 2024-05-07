@@ -170,7 +170,7 @@ public class fivetendetailsgui implements BuildingDetailsListener {
             threadRunning = true; // Start the thread
             while (threadRunning) {
                 try {
-                    Thread.sleep(100); // Adjust the sleep time according to your needs
+                    Thread.sleep(5000); // Adjust the sleep time according to your needs
                     Platform.runLater(() -> checkForImageChange(primaryStage, imageView, buildingName));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -199,16 +199,16 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         rightNavButtons.getChildren().addAll(newRightNavButtons.getChildren());
     
 
-// Set alignment and spacing
-newLeftNavButtons.setAlignment(Pos.CENTER);
-newRightNavButtons.setAlignment(Pos.CENTER);
-newLeftNavButtons.setSpacing(20);
-newRightNavButtons.setSpacing(20);
+        // Set alignment and spacing
+        newLeftNavButtons.setAlignment(Pos.CENTER);
+        newRightNavButtons.setAlignment(Pos.CENTER);
+        newLeftNavButtons.setSpacing(20);
+        newRightNavButtons.setSpacing(20);
 
-// Add new navigation buttons to the provided containers
-leftNavButtons.getChildren().addAll(newLeftNavButtons.getChildren());
-rightNavButtons.getChildren().addAll(newRightNavButtons.getChildren());
-}
+        // Add new navigation buttons to the provided containers
+        leftNavButtons.getChildren().addAll(newLeftNavButtons.getChildren());
+        rightNavButtons.getChildren().addAll(newRightNavButtons.getChildren());
+    }
 
 
     // Method to check for image change
@@ -235,8 +235,7 @@ rightNavButtons.getChildren().addAll(newRightNavButtons.getChildren());
     }
 
    
-   
-   //NEW METHOD
+
    private static VBox createLeftNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
