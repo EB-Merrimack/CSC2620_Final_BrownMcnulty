@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -37,85 +38,103 @@ public class maincampusgui {
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Den.png", "Warrior's Den: Another Dining Option Within The Sakowich Center"));
         images.add(new ImageWithCaptions("/photos/CSC2620 Main Campus-20240506T193717Z-001/CSC2620 Main Campus/Gym.png", "Gym"));
 
+       
+       
         ImageView imageView = new ImageView();
-
-        // Initial image and caption
-        ImageWithCaptions initialImage = images.get(0);
-        imageView.setImage(new Image(initialImage.getImageUrl()));
-        Label captionLabel = new Label(initialImage.getCaption());
+        imageView.setPreserveRatio(true);
+        imageView.setImage(images.get(0).getImage()); // Set initial image
 
         // Bind fit width and height of ImageView to size of BorderPane's center region
         imageView.fitWidthProperty().bind(root.widthProperty().divide(1.5));
         imageView.fitHeightProperty().bind(root.heightProperty().divide(1.5));
 
-        // Create navigation buttons
-        VBox leftNavButtons = createLeftNavigationButtons(images, imageView, captionLabel);
-        VBox rightNavButtons = createRightNavigationButtons(images, imageView, captionLabel);
-        VBox gobackButton = createGobackButton(primaryStage);
+       // Create StackPane to overlay caption on ImageView
+    StackPane imageStackPane = new StackPane();
+    imageStackPane.getChildren().add(imageView);
 
-       
-        // Create navigation buttons
-        gobackButton.setAlignment(Pos.CENTER);
-        leftNavButtons.setAlignment(Pos.CENTER);
-        rightNavButtons.setAlignment(Pos.CENTER);
-        leftNavButtons.setSpacing(20);
-        rightNavButtons.setSpacing(20);
-        BorderPane.setAlignment(leftNavButtons, Pos.CENTER_LEFT);
-        BorderPane.setAlignment(rightNavButtons, Pos.CENTER_RIGHT);
-        BorderPane.setAlignment(gobackButton, Pos.BASELINE_CENTER);
+    // Create caption label
+    Label captionLabel = new Label();
+    captionLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0.7); -fx-padding: 5px;");
+    captionLabel.setWrapText(true); // Wrap text if it exceeds the width
+    captionLabel.prefWidthProperty().bind(imageView.fitWidthProperty()); // Set label width to fit ImageView width
 
-        // Add ImageView and navigation buttons to BorderPane
-        root.setCenter(imageView);
-        root.setLeft(leftNavButtons);
-        root.setRight(rightNavButtons);
-        root.setBottom(gobackButton);
-        root.setBottom(captionLabel);
+    // Bind caption label position to image position
+    StackPane.setAlignment(captionLabel, Pos.BOTTOM_CENTER);
 
-        // Create a Scene
+    // Set initial caption
+    captionLabel.setText(images.get(0).getCaption());
+
+    imageStackPane.getChildren().add(captionLabel);
+
+    // Create navigation buttons
+    VBox leftNavButtons = createLeftNavigationButtons(images, imageView, captionLabel, caption -> {
+        System.out.println("Displayed caption: " + caption);
+        // Add custom logic here if needed
+    });
+
+    VBox rightNavButtons = createRightNavigationButtons(images, imageView, captionLabel, caption -> {
+        System.out.println("Displayed caption: " + caption);
+        // Add custom logic here if needed
+    });
+
+    leftNavButtons.setAlignment(Pos.CENTER);
+    rightNavButtons.setAlignment(Pos.CENTER);
+    leftNavButtons.setSpacing(20);
+    rightNavButtons.setSpacing(20);
+    BorderPane.setAlignment(leftNavButtons, Pos.CENTER_LEFT);
+    BorderPane.setAlignment(rightNavButtons, Pos.CENTER_RIGHT);
+
+    root.setCenter(imageStackPane); // Use StackPane containing ImageView and caption label
+    root.setLeft(leftNavButtons);
+    root.setRight(rightNavButtons);
+
         Scene scene = new Scene(root, 800, 500); // Initial scene size
-
-        // Set the scene and show the stage
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slideshow with Captions");
         primaryStage.show();
     }
 
-    private static VBox createLeftNavigationButtons(List<ImageWithCaptions> imagesWithCaptions, ImageView imageView, Label captionLabel) {
+
+    private static VBox createLeftNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-
+    
         // Create left button
         Button leftButton = new Button("←");
         leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
         leftButton.setOnAction(event -> {
-            int currentIndex = getCurrentIndex(imagesWithCaptions, imageView.getImage());
+            int currentIndex = getCurrentIndex(images, imageView.getImage());
             if (currentIndex > 0) {
-                ImageWithCaptions prevImage = imagesWithCaptions.get(currentIndex - 1);
-                imageView.setImage(new Image(prevImage.getImageUrl()));
-                captionLabel.setText(prevImage.getCaption());
+                ImageWithCaptions newImage = images.get(currentIndex - 1);
+                Image image = new Image(newImage.getUrl()); // Correct way to create Image from URL
+                imageView.setImage(image);
+                applyFadeTransition(imageView, true);
+                listener.onImageDisplayedChanged(newImage.getCaption()); // Notify listener with the new caption
             }
         });
-
+    
         navButtons.getChildren().add(leftButton);
         return navButtons;
     }
-
-    private static VBox createRightNavigationButtons(List<ImageWithCaptions> imagesWithCaptions, ImageView imageView, Label captionLabel) {
+    
+    private static VBox createRightNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
-
+    
         // Create right button
         Button rightButton = new Button("→");
         rightButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
         rightButton.setOnAction(event -> {
-            int currentIndex = getCurrentIndex(imagesWithCaptions, imageView.getImage());
-            if (currentIndex < imagesWithCaptions.size() - 1) {
-                ImageWithCaptions nextImage = imagesWithCaptions.get(currentIndex + 1);
-                imageView.setImage(new Image(nextImage.getImageUrl()));
-                captionLabel.setText(nextImage.getCaption());
+            int currentIndex = getCurrentIndex(images, imageView.getImage());
+            if (currentIndex < images.size() - 1) {
+                ImageWithCaptions newImage = images.get(currentIndex + 1);
+                Image image = new Image(newImage.getUrl()); // Correct way to create Image from URL
+                imageView.setImage(image);
+                applyFadeTransition(imageView, false);
+                listener.onImageDisplayedChanged(newImage.getCaption()); // Notify listener with the new caption
             }
         });
-
+    
         navButtons.getChildren().add(rightButton);
         return navButtons;
     }
@@ -137,12 +156,35 @@ public class maincampusgui {
     }
 
     // Helper method to get current index of the displayed image
-    private static int getCurrentIndex(List<ImageWithCaptions> imagesWithCaptions, Image currentImage) {
-        for (int i = 0; i < imagesWithCaptions.size(); i++) {
-            if (imagesWithCaptions.get(i).getImageUrl().equals(currentImage.getUrl())) {
+    private static int getCurrentIndex(List<ImageWithCaptions> images, Image currentImage) {
+        for (int i = 0; i < images.size(); i++) {
+            if (images.get(i).getImage().getUrl().equals(currentImage.getUrl())) {
                 return i;
             }
         }
         return -1;
+    }
+     // Method to apply fade transition to the image
+    private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(TRANSITION_DURATION), imageView);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+
+        TranslateTransition translateTransition;
+        if (isLeft) {
+            translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
+            translateTransition.setToX(-imageView.getFitWidth() / 2);
+        } else {
+            translateTransition = new TranslateTransition(Duration.millis(TRANSITION_DURATION), imageView);
+            translateTransition.setToX(imageView.getFitWidth() / 2);
+        }
+
+        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, translateTransition);
+        parallelTransition.setOnFinished(event -> {
+            imageView.setOpacity(1.0); // Reset opacity after transition
+            imageView.setTranslateX(0); // Reset translation after transition
+        });
+
+        parallelTransition.play();
     }
 }
