@@ -21,6 +21,12 @@ class EastCampusInfo implements BuildingInfo {
     }
 }
 
+class ComputerScienceProgram implements BuildingInfo{
+    @Override
+    public String getInfo(){
+        return "Let's find out more about the computer science program and it's staff!";
+    }
+}
 // Decorator class
 class BuildingInfoDecorator implements BuildingInfo {
     private final BuildingInfo buildingInfo;

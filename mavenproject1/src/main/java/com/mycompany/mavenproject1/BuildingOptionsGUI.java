@@ -25,17 +25,21 @@ public class BuildingOptionsGUI extends Application {
         // Create checkboxes for Main Campus and East Campus
         RadioButton mainCampusCheckbox = new RadioButton("Main Campus");
         RadioButton eastCampusCheckbox = new RadioButton("East Campus");
+        RadioButton ComputerScienceProgram=new RadioButton("Program Overview\n"
+                                                            + "of Computer Science");
 
         // Create a ToggleGroup to ensure only one radio button can be selected at a time
         ToggleGroup toggleGroup = new ToggleGroup();
         mainCampusCheckbox.setToggleGroup(toggleGroup);
         eastCampusCheckbox.setToggleGroup(toggleGroup);
+        ComputerScienceProgram.setToggleGroup(toggleGroup);
+
 
         // Create a VBox to hold the checkboxes
         VBox checkboxBox = new VBox(10);
         checkboxBox.setAlignment(Pos.CENTER);
         checkboxBox.setPadding(new Insets(20));
-        checkboxBox.getChildren().addAll(mainCampusCheckbox, eastCampusCheckbox);
+        checkboxBox.getChildren().addAll(mainCampusCheckbox, eastCampusCheckbox,ComputerScienceProgram);
 
         // Create placeholder text
         Text placeholderText = new Text("Click which campus you would like to learn about first");
@@ -80,6 +84,18 @@ public class BuildingOptionsGUI extends Application {
                     fivetendetailsgui.showBuildingDetails(primaryStage, "East Campus");
                 });
                 tourButton.setVisible(true); // Show the button when East Campus checkbox is selected
+            }
+        });
+        ComputerScienceProgram.setOnAction(e -> {
+            if (ComputerScienceProgram.isSelected()){
+                placeholderText.setText(new ComputerScienceProgram().getInfo());
+                tourButton.setOnAction(event -> {
+                       // Perform actions specific to East Campus interactive tour
+                       System.out.println("Initiating Computer science overview tour...");
+                       ComputerScienceProgramgui.showBuildingDetails(primaryStage);
+                   
+                });
+                tourButton.setVisible(true);
             }
         });
 
