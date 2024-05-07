@@ -133,10 +133,9 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         imageView.setImage(upstairsimages.get(0).getImage()); // Set initial image to the first upstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, upstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
             @Override
-            public void onImageDisplayedChanged(String imagePath) {
-                // Implement the logic to handle the change in displayed image
-                System.out.println("Displayed image changed: " + imagePath);
-                // You can add your own custom logic here, such as updating UI components, etc.
+            public void onImageDisplayedChanged(String caption) {
+                captionLabel.setText(caption); // Update the caption
+                System.out.println("Displayed caption: " + caption);
             }
         }); // Update navigation buttons
     });
@@ -149,10 +148,10 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, downstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
             @Override
-            public void onImageDisplayedChanged(String imagePath) {
-                // Implement the logic to handle the change in displayed image
-                System.out.println("Displayed image changed: " + imagePath);
-                // You can add your own custom logic here, such as updating UI components, etc.
+            public void onImageDisplayedChanged(String caption) {
+                captionLabel.setText(caption); // Update the caption
+            System.out.println("Displayed caption: " + caption);
+            // Add custom logic here if needed
             }
         }); // Update navigation buttons
     });
