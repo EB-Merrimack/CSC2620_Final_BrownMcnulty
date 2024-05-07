@@ -31,6 +31,7 @@ public class fivetendetailsgui implements BuildingDetailsListener {
     
         // Load images
         List<ImageWithCaptions> upstairsimages = new ArrayList<>();
+        upstairsimages.add(new ImageWithCaptions("photos/CSC2620 Extra Photos-20240507T164141Z-001/CSC2620 Extra Photos/510UpperrLevel1.PNG", "Entrance to the second floor at the top of the stairs"));
         upstairsimages.add(new ImageWithCaptions("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png", "Hallyway straight through the doors and location of the bathrooms"));
         upstairsimages.add(new ImageWithCaptions("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png", "Located to the right after the doors and location of classroom 202"));
         upstairsimages.add(new ImageWithCaptions("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png", "Classroom 202: Electrical Engineering Labatory"));
