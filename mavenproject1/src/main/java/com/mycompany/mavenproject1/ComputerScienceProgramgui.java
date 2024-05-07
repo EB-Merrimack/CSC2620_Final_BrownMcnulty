@@ -97,7 +97,7 @@ public class ComputerScienceProgramgui {
         new Thread(() -> {
             for (ImageWithCaptions image : images) {
                 try {
-                    Thread.sleep(1000); // Simulate delay for loading each image
+                    Thread.sleep(8000); // Simulate delay for loading each image
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
