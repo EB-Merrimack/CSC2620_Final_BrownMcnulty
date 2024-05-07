@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -62,10 +63,16 @@ public class maincampusgui {
         // Bind caption label position to image position
         StackPane.setAlignment(captionLabel, Pos.BOTTOM_CENTER);
 
-        // Set initial caption
-        captionLabel.setText(images.get(0).getCaption());
 
-        imageStackPane.getChildren().add(captionLabel);
+// Assuming captionLabel is a Text node and images is a List<ImageWithCaptions>
+String styledCaption = images.get(0).getCaption();
+captionLabel.setStyle("-fx-text-fill: gold; -fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 14px;");
+Glow glow = new Glow();
+glow.setLevel(0.8); // Adjust the glow level as needed
+captionLabel.setEffect(glow);
+captionLabel.setText(styledCaption);
+imageStackPane.getChildren().add(captionLabel);
+
 
         // Create navigation buttons
         VBox leftNavButtons = createLeftNavigationButtons(images, imageView, captionLabel, caption -> {
