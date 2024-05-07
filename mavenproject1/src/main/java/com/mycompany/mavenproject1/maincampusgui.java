@@ -78,7 +78,7 @@ public class maincampusgui {
         System.out.println("Displayed caption: " + caption);
         // Add custom logic here if needed
     });
-
+    VBox topRightButtons = createTopRightButtons(primaryStage); 
     leftNavButtons.setAlignment(Pos.CENTER);
     rightNavButtons.setAlignment(Pos.CENTER);
     leftNavButtons.setSpacing(20);
@@ -89,11 +89,31 @@ public class maincampusgui {
     root.setCenter(imageStackPane); // Use StackPane containing ImageView and caption label
     root.setLeft(leftNavButtons);
     root.setRight(rightNavButtons);
+    root.setTop(topRightButtons); // Set top right buttons
+
 
         Scene scene = new Scene(root, 800, 500); // Initial scene size
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slideshow with Captions");
         primaryStage.show();
+    }
+
+
+    private static VBox createTopRightButtons(Stage primaryStage) {
+        VBox topRightButtons = new VBox();
+        topRightButtons.setStyle("-fx-background-color: transparent;");
+    
+        // Create goback button
+        Button goback = new Button("Return to Building Options");
+        goback.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+        goback.setOnAction(event -> {
+            BuildingOptionsGUI buildingOptionsGUI = new BuildingOptionsGUI();
+            buildingOptionsGUI.start(primaryStage);
+        });
+    
+        topRightButtons.getChildren().add(goback);
+        topRightButtons.setAlignment(Pos.TOP_RIGHT);
+        return topRightButtons;
     }
 
 
