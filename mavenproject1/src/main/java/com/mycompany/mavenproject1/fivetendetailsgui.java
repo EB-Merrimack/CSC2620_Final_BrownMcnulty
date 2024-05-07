@@ -20,63 +20,64 @@ import javafx.util.Duration;
 public class fivetendetailsgui implements BuildingDetailsListener {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
     private static volatile boolean threadRunning = false; // Flag to control the thread execution
+    private static boolean isUpstairsMode = false; // Flag to track the current mode
 
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: royalblue; -fx-padding: 20px;");
-
+    
         // Load images
-        List<Image> images = new ArrayList<>();
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor5.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor6.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor7.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor8.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor10.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor11.png"));
-        images.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor12.png"));
+        List<Image> upstairsimages = new ArrayList<>();
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor2.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor3.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor4.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor5.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor6.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor7.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor8.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor10.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor11.png"));
+        upstairsimages.add(new Image("/photos/CSC2620 Campus Photos Upstairs-20240430T003439Z-001/CSC2620 Campus Photos Upstairs/510upperfloor12.png"));
 
         List<Image> downstairsimages = new ArrayList<>();
         downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Entrance.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor1.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor2.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor3.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor4.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor5.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor6.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor7.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor8.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor10.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor11.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor12.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor13.png"));
-        downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor14.png"));
-
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor1.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor2.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor3.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor4.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor5.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor6.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor7.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor8.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs Part 2-20240506T190054Z-001/CSC2620 Campus Photos Downstairs Part 2/510Lowerfloor10.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor11.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor12.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor13.png"));
+ downstairsimages.add(new Image("/photos/CSC2620 Campus Photos Downstairs-20240506T185853Z-001/CSC2620 Campus Photos Downstairs/510Lowerfloor14.png"));
 
         // Create ImageView
         ImageView imageView = new ImageView();
         imageView.setPreserveRatio(true);
-        imageView.setImage(images.get(0)); // Set initial image
-
+        imageView.setImage(downstairsimages.get(0)); // Set initial image
+    
         // Bind fit width and height of ImageView to size of BorderPane's center region
         imageView.fitWidthProperty().bind(root.widthProperty().divide(1.5));
         imageView.fitHeightProperty().bind(root.heightProperty().divide(1.5));
-
+    
         // Create navigation buttons
-        VBox leftNavButtons = createLeftNavigationButtons(images, imageView, imagePath -> {
+        VBox leftNavButtons = createLeftNavigationButtons(downstairsimages, imageView, imagePath -> {
             // Implement logic to handle image changes directly inside the lambda expression
             System.out.println("Displayed image changed: " + imagePath);
             // You can add your own custom logic here
         });
-        
-        VBox rightNavButtons = createRightNavigationButtons(images, imageView, imagePath -> {
+    
+        VBox rightNavButtons = createRightNavigationButtons(downstairsimages, imageView, imagePath -> {
             // Implement logic to handle image changes directly inside the lambda expression
             System.out.println("Displayed image changed: " + imagePath);
             // You can add your own custom logic here
         });
+    
         VBox Goback = createGobackButton(primaryStage);
         Goback.setAlignment(Pos.CENTER);
         leftNavButtons.setAlignment(Pos.CENTER);
@@ -86,21 +87,51 @@ public class fivetendetailsgui implements BuildingDetailsListener {
         BorderPane.setAlignment(leftNavButtons, Pos.CENTER_LEFT);
         BorderPane.setAlignment(rightNavButtons, Pos.CENTER_RIGHT);
         BorderPane.setAlignment(Goback, Pos.BASELINE_CENTER);
-
+    
+        // Create mode switching buttons
+        Button goUpstairsButton = new Button("Go Upstairs");
+        goUpstairsButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+        Button goDownstairsButton = new Button("Go Downstairs");
+        goDownstairsButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+    
+        VBox bottomPane = new VBox();
+        bottomPane.setAlignment(Pos.CENTER);
+        bottomPane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button initially
+        bottomPane.getChildren().add(Goback);
+        root.setBottom(bottomPane);
+    
         // Add ImageView and navigation buttons to BorderPane
         root.setCenter(imageView);
         root.setLeft(leftNavButtons);
         root.setRight(rightNavButtons);
-        root.setBottom(Goback);
-
+        root.setBottom(bottomPane);
+    
+        goUpstairsButton.setOnAction(event -> {
+            bottomPane.getChildren().remove(goUpstairsButton); // Remove the "Go Upstairs" button
+            bottomPane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
+    
+            isUpstairsMode = true;
+            imageView.setImage(upstairsimages.get(0)); // Set initial image to the first upstairs image
+            configureNavButtons(leftNavButtons, rightNavButtons, upstairsimages, imageView); // Update navigation buttons
+        });
+    
+        goDownstairsButton.setOnAction(event -> {
+            bottomPane.getChildren().remove(goDownstairsButton); // Remove the "Go Downstairs" button
+            bottomPane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button
+    
+            isUpstairsMode = false;
+            imageView.setImage(downstairsimages.get(0)); // Set initial image to the first downstairs image
+            configureNavButtons(leftNavButtons, rightNavButtons, downstairsimages, imageView); // Update navigation buttons
+        });
+    
         // Create a Scene
         Scene scene = new Scene(root, 800, 500); // Initial scene size
-
+    
         // Set the scene and show the stage
         primaryStage.setScene(scene);
         primaryStage.setTitle(buildingName + " Details");
         primaryStage.show();
-
+    
         // Keep the fivetendetailsguiDecorator open in a separate thread
         new Thread(() -> {
             threadRunning = true; // Start the thread
@@ -114,12 +145,41 @@ public class fivetendetailsgui implements BuildingDetailsListener {
             }
         }).start();
     }
+    
+    private static void configureNavButtons(VBox leftNavButtons, VBox rightNavButtons, List<Image> images,
+    ImageView imageView) {
+// Clear existing buttons
+leftNavButtons.getChildren().clear();
+rightNavButtons.getChildren().clear();
+
+// Create new navigation buttons
+VBox newLeftNavButtons = createLeftNavigationButtons(images, imageView, imagePath -> {
+    // Implement logic to handle image changes directly inside the lambda expression
+    System.out.println("Displayed image changed: " + imagePath);
+    // You can add your own custom logic here
+});
+
+VBox newRightNavButtons = createRightNavigationButtons(images, imageView, imagePath -> {
+    // Implement logic to handle image changes directly inside the lambda expression
+    System.out.println("Displayed image changed: " + imagePath);
+    // You can add your own custom logic here
+});
+
+// Set alignment and spacing
+newLeftNavButtons.setAlignment(Pos.CENTER);
+newRightNavButtons.setAlignment(Pos.CENTER);
+newLeftNavButtons.setSpacing(20);
+newRightNavButtons.setSpacing(20);
+
+// Add new navigation buttons to the provided containers
+leftNavButtons.getChildren().addAll(newLeftNavButtons.getChildren());
+rightNavButtons.getChildren().addAll(newRightNavButtons.getChildren());
+}
+
 
     // Method to check for image change
     private static void checkForImageChange(Stage primaryStage, ImageView imageView, String buildingName) {
-        // Implement logic to check for image change and add necessary objects as the image loads
-        // For simplicity, this method currently does nothing except print a message
-        System.out.println("Checking for image change...");
+        // TODO Auto-generated method stub
     }
 
     // Method to create the "Return to Building Options" button
