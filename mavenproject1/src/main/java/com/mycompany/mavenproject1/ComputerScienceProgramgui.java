@@ -7,20 +7,29 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ComputerScienceProgramgui {
-
+    private static volatile boolean threadRunning = true;
+    private static Thread slideshowThread;
    private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
 
     public static void showBuildingDetails(Stage primaryStage) {
@@ -49,8 +58,7 @@ public class ComputerScienceProgramgui {
         StackPane imageStackPane = new StackPane();
         imageStackPane.getChildren().add(imageView);
 
-        // Create caption label
-        Label captionLabel = new Label();
+     Label captionLabel = new Label();
         captionLabel.setStyle("-fx-background-color: rgba(255, 255, 255, 0.7); -fx-padding: 5px;");
         captionLabel.setWrapText(true); // Wrap text if it exceeds the width
         captionLabel.prefWidthProperty().bind(imageView.fitWidthProperty()); // Set label width to fit ImageView width
@@ -58,10 +66,25 @@ public class ComputerScienceProgramgui {
         // Bind caption label position to image position
         StackPane.setAlignment(captionLabel, Pos.BOTTOM_CENTER);
 
-        // Set initial caption
-        captionLabel.setText(images.get(0).getCaption());
 
-        imageStackPane.getChildren().add(captionLabel);
+// Assuming captionLabel is a Text node and images is a List<ImageWithCaptions>
+// Assuming captionLabel is a Label node and images is a List<ImageWithCaptions>
+String styledCaption = images.get(0).getCaption();
+captionLabel.setStyle("-fx-text-fill: royalblue; -fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 14px;");
+DropShadow dropShadow = new DropShadow();
+dropShadow.setColor(Color.DARKGRAY);
+dropShadow.setRadius(3);
+dropShadow.setOffsetX(2);
+dropShadow.setOffsetY(2);
+captionLabel.setEffect(dropShadow);
+captionLabel.setBackground(new Background(new BackgroundFill(Color.rgb(255, 215, 0 ,.5), new CornerRadii(5), Insets.EMPTY))); // Semi-transparent background color
+captionLabel.setText(styledCaption);
+imageStackPane.getChildren().add(captionLabel);
+
+        // Bind caption label position to image position
+        StackPane.setAlignment(captionLabel, Pos.BOTTOM_CENTER);
+
+      
 
         // Create navigation buttons
         VBox leftNavButtons = createLeftNavigationButtons(images, imageView, captionLabel, caption -> {
@@ -93,23 +116,74 @@ public class ComputerScienceProgramgui {
         primaryStage.setTitle("Slideshow with Captions");
         primaryStage.show();
 
-        // Load images in a separate thread to avoid blocking the UI
-        new Thread(() -> {
-            for (ImageWithCaptions image : images) {
-                try {
-                    Thread.sleep(8000); // Simulate delay for loading each image
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            // Create a toggle button with play and pause icons
+ToggleButton playPauseButton = new ToggleButton();
+playPauseButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
+
+
+// Set play and pause icons to the button
+playPauseButton.setText("pause"); // Set initial icon to pause
+
+// Add action event handler to toggle between play and pause icons
+playPauseButton.setOnAction(event -> {
+    if (playPauseButton.isSelected()) {
+        // Change to play icon and resume the slideshow thread
+        playPauseButton.setText("play");
+        threadRunning = false;
+        synchronized (slideshowThread) {
+            slideshowThread.notify(); // Notify the thread to resume execution
+        }
+    } else {
+        // Change to pause icon and pause the slideshow thread
+        playPauseButton.setText("Pause");
+        threadRunning = true;
+        synchronized (slideshowThread) {
+            slideshowThread.notify(); // Notify the thread to resume execution
+        }
+    }
+});
+
+// Add the play/pause button to the control buttons HBox
+HBox controlButtons = new HBox(playPauseButton);
+controlButtons.setAlignment(Pos.CENTER);
+controlButtons.setSpacing(20);
+
+// Add control buttons to the BorderPane
+root.setBottom(controlButtons);
+
+       
+         // Initialize and start the slideshow thread
+         slideshowThread = new Thread(() -> {
+            int[] currentIndex = {0}; // Array to hold the index
+            while (threadRunning) {
                 // Update UI on JavaFX Application Thread
                 Platform.runLater(() -> {
+                    ImageWithCaptions image = images.get(currentIndex[0]);
                     imageView.setImage(image.getImage());
                     captionLabel.setText(image.getCaption());
                 });
+                try {
+                    Thread.sleep(5000); // Delay between image transitions
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                currentIndex[0] = (currentIndex[0] + 1) % images.size();
+                // Check if the thread should be paused
+                synchronized (slideshowThread) {
+                    if (!threadRunning) {
+                        try {
+                            slideshowThread.wait(); // Pause the thread until notified
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
-        }).start();
+        });
+        slideshowThread.start();
     }
 
+        
     private static VBox createTopRightButtons(Stage primaryStage) {
         VBox topRightButtons = new VBox();
         topRightButtons.setStyle("-fx-background-color: transparent;");
