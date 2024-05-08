@@ -7,16 +7,22 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -82,10 +88,14 @@ public class fivetendetailsgui {
 
   // Assuming captionLabel is a Text node and images is a List<ImageWithCaptions>
 String styledCaption = downstairsimages.get(0).getCaption();
-captionLabel.setStyle("-fx-text-fill: gold; -fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 14px;");
-Glow glow = new Glow();
-glow.setLevel(0.8); // Adjust the glow level as needed
-captionLabel.setEffect(glow);
+captionLabel.setStyle("-fx-text-fill: royalblue; -fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 14px;");
+DropShadow dropShadow = new DropShadow();
+dropShadow.setColor(Color.DARKGRAY);
+dropShadow.setRadius(3);
+dropShadow.setOffsetX(2);
+dropShadow.setOffsetY(2);
+captionLabel.setEffect(dropShadow);
+captionLabel.setBackground(new Background(new BackgroundFill(Color.rgb(255, 215, 0 ,.5), new CornerRadii(5), Insets.EMPTY))); // Semi-transparent background color
 captionLabel.setText(styledCaption);
 imageStackPane.getChildren().add(captionLabel);
 
