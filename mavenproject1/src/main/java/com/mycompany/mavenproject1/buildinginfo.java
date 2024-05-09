@@ -36,22 +36,4 @@ class ComputerScienceProgram implements BuildingInfo{
     public String getInfo(){
         return "Let's find out more about the computer science program and it's staff!";
     }
-}
-// Decorator class
-class BuildingInfoDecorator implements BuildingInfo {
-    private final BuildingInfo buildingInfo;
-
-    public BuildingInfoDecorator(BuildingInfo buildingInfo) {
-        this.buildingInfo = buildingInfo;
     }
-
-        /**
-         * Retrieves the information from the decorated BuildingInfo object.
-         *
-         * @return the information from the decorated BuildingInfo object
-         */
-    @Override
-    public String getInfo() {
-        return buildingInfo.getInfo();
-    }
-}
