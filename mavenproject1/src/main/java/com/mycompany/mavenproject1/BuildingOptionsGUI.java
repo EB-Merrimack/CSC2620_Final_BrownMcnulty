@@ -11,13 +11,17 @@ import javafx.scene.effect.Glow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class BuildingOptionsGUI extends Application {
 
+    /**
+     * Initializes the JavaFX application and sets up the GUI for selecting building options.
+     *
+     * @param  primaryStage  the primary stage for the JavaFX application
+     */
     @Override
     public void start(Stage primaryStage) {
         Mavenproject1 mainMenu = new Mavenproject1(); // Create an instance of the main menu
@@ -127,7 +131,5 @@ public class BuildingOptionsGUI extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+   
 }

@@ -1,12 +1,10 @@
 package com.mycompany.mavenproject1;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,6 +32,13 @@ public class CollegeTourLogin extends Application {
         Parent root = getRoot(primaryStage);
     }
 
+
+/**
+ * Retrieves the root node of the JavaFX scene graph for the given primary stage.
+ *
+ * @param  primaryStage  the primary stage of the application
+ * @return              the root node of the JavaFX scene graph
+ */
     public Parent getRoot(Stage primaryStage) {
         VBox root = new VBox(10);
         root.setPadding(new Insets(20));
@@ -95,12 +100,26 @@ public class CollegeTourLogin extends Application {
         return root;
     }
 
+    /**
+     * Exits the application by starting a new instance of the Mavenproject1 class
+     * with the given primary stage.
+     *
+     * @param  primarStage  the primary stage of the application
+     */
     private void exitApplication(Stage primarStage) {  
         Mavenproject1 mavenproject1 = new Mavenproject1();
         mavenproject1.start(primarStage);
 
     }
     
+    /**
+     * Displays an alert with the specified title, message, and type, waiting for user interaction.
+     *
+     * @param  title    the title of the alert
+     * @param  message  the message content of the alert
+     * @param  type     the type of the alert
+     * @return          void
+     */
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -109,6 +128,12 @@ public class CollegeTourLogin extends Application {
         alert.showAndWait();
     }
 
+    /**
+     * A description of the entire Java function.
+     *
+     * @param  email	description of parameter
+     * @return         	description of return value
+     */
     private boolean userExistsByEmail(String email) {
         try {
             Path filePath = Paths.get(JSON_FILE_PATH);
@@ -134,15 +159,35 @@ public class CollegeTourLogin extends Application {
         }
     }
 
+    /**
+     * Prompts the user for input using a dialog box with the given title and header.
+     *
+     * @param  title  the title of the dialog box
+     * @param  header the header text of the dialog box
+     * @return        the user's input as a string, or an empty string if the dialog is cancelled
+     */
     private String promptForInput(String title, String header) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("College Tour Login");
+    /**
+     * Prompts the user for input using a dialog box with the given title and header.
+     *
+     * @param  title  the title of the dialog box
+     * @param  header the header text of the dialog box
+     * @return        the user's input as a string, or an empty string if the dialog is cancelled
+     */
         dialog.setHeaderText(header);
         dialog.setContentText(title);
         Optional<String> result = dialog.showAndWait();
         return result.orElse("");
     }
 
+    /**
+     * A description of the entire Java function.
+     *
+     * @param  paramName	description of parameter
+     * @return         	description of return value
+     */
     private String promptForValidEmail() {
         String email = "";
         boolean isValid = false;
@@ -173,6 +218,12 @@ public class CollegeTourLogin extends Application {
         return email;
     }
 
+    /**
+     * Validates if the given email is a valid email address.
+     *
+     * @param  email  the email address to be validated
+     * @return        true if the email is valid, false otherwise
+     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
@@ -213,6 +264,11 @@ public class CollegeTourLogin extends Application {
         }
     }
 
+    /**
+     * Launches the JavaFX application.
+     *
+     * @param  args  the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

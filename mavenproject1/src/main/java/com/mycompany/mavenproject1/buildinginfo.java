@@ -15,6 +15,11 @@ class MainCampusInfo implements BuildingInfo {
 
 // Concrete Decorator for East Campus
 class EastCampusInfo implements BuildingInfo {
+    /**
+     * A description of the entire Java function.
+     *
+     * @return         description of return value
+     */
     @Override
     public String getInfo() {
         return "East Campus: Comprising buildings 510 Turnpike Street the headquarters for all things computer science.";
@@ -22,6 +27,11 @@ class EastCampusInfo implements BuildingInfo {
 }
 
 class ComputerScienceProgram implements BuildingInfo{
+        /**
+         * Returns a string containing information about the computer science program and its staff.
+         *
+         * @return          a string containing information about the computer science program and its staff
+         */
     @Override
     public String getInfo(){
         return "Let's find out more about the computer science program and it's staff!";
@@ -35,6 +45,11 @@ class BuildingInfoDecorator implements BuildingInfo {
         this.buildingInfo = buildingInfo;
     }
 
+        /**
+         * Retrieves the information from the decorated BuildingInfo object.
+         *
+         * @return the information from the decorated BuildingInfo object
+         */
     @Override
     public String getInfo() {
         return buildingInfo.getInfo();

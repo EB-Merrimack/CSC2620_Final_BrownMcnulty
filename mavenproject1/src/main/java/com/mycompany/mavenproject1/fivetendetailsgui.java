@@ -6,14 +6,12 @@ import java.util.List;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -28,9 +26,6 @@ import javafx.util.Duration;
 
 public class fivetendetailsgui {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
-    private static volatile boolean threadRunning = false; // Flag to control the thread execution
-    private static boolean isUpstairsMode = false; // Flag to track the current mode
-
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();
@@ -145,7 +140,6 @@ imageStackPane.getChildren().add(captionLabel);
             toppane.getChildren().add(goDownstairsButton); // Add the "Go Downstairs" button
             captionLabel.setText(upstairsimages.get(0).getCaption());
     
-        isUpstairsMode = true;
         imageView.setImage(upstairsimages.get(0).getImage()); // Set initial image to the first upstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, upstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
             @Override
@@ -160,8 +154,7 @@ imageStackPane.getChildren().add(captionLabel);
             toppane.getChildren().remove(goDownstairsButton); // Remove the "Go Downstairs" button
             toppane.getChildren().add(goUpstairsButton); // Add the "Go Upstairs" button
             captionLabel.setText(downstairsimages.get(0).getCaption());
-            isUpstairsMode = false;
-        imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
+            imageView.setImage(downstairsimages.get(0).getImage()); // Set initial image to the first downstairs image
         configureNavButtons(leftNavButtons, rightNavButtons, downstairsimages, imageView, captionLabel, new BuildingDetailsListener() {
             
             @Override
@@ -184,6 +177,16 @@ imageStackPane.getChildren().add(captionLabel);
     
     }
     
+    /**
+     * Configures the navigation buttons for the given VBox containers.
+     *
+     * @param  leftNavButtons   the VBox container for the left navigation buttons
+     * @param  rightNavButtons  the VBox container for the right navigation buttons
+     * @param  images           the list of ImageWithCaptions objects representing the images to navigate through
+     * @param  imageView        the ImageView to display the current image
+     * @param  captionLabel     the Label to display the caption of the current image
+     * @param  listener          the BuildingDetailsListener to notify when the image is changed
+     */
     private static void configureNavButtons(VBox leftNavButtons, VBox rightNavButtons, List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         // Clear existing buttons
         leftNavButtons.getChildren().clear();
@@ -228,7 +231,6 @@ imageStackPane.getChildren().add(captionLabel);
         goback.setOnAction(event -> {
             BuildingOptionsGUI buildingOptionsGUI = new BuildingOptionsGUI();
             buildingOptionsGUI.start(primaryStage);
-            threadRunning = false; // Stop the thread when returning to building options
         });
 
         navButtons.getChildren().add(goback);
@@ -237,6 +239,15 @@ imageStackPane.getChildren().add(captionLabel);
 
    
 
+    /**
+     * Creates a VBox containing a left navigation button. When the button is clicked, it navigates to the previous image in the list of images.
+     *
+     * @param  images      a list of ImageWithCaptions objects representing the images to navigate through
+     * @param  imageView   the ImageView to display the current image
+     * @param  captionLabel the Label to display the caption of the current image
+     * @param  listener     the BuildingDetailsListener to notify when the image is changed
+     * @return             a VBox containing the left navigation button
+     */
    private static VBox createLeftNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
@@ -259,6 +270,15 @@ imageStackPane.getChildren().add(captionLabel);
         return navButtons;
     }
     
+    /**
+     * Creates a VBox containing a right navigation button. When the button is clicked, it navigates to the next image in the list of images.
+     *
+     * @param  images         a list of ImageWithCaptions objects representing the images to navigate through
+     * @param  imageView      the ImageView to display the current image
+     * @param  captionLabel   the Label to display the caption of the current image
+     * @param  listener       the BuildingDetailsListener to notify when the image is changed
+     * @return                a VBox containing the right navigation button
+     */
     private static VBox createRightNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
@@ -318,6 +338,4 @@ imageStackPane.getChildren().add(captionLabel);
     
 }
 
-interface BuildingDetailsListener {
-    void onImageDisplayedChanged(String imagePath);
-}
+

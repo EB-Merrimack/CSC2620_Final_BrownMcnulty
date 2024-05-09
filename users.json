@@ -58,4 +58,11 @@
   "email": "parenttest@gmail.con",
   "role": "parent"
 }
+,
+{
+  "name": "finals",
+  "location": "merrimack",
+  "email": "finaltest@merrimack.edu",
+  "role": "parent"
+}
 ]

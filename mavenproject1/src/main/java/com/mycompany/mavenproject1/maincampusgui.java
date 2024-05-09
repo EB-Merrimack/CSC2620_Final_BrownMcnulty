@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -32,6 +31,12 @@ public class maincampusgui {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
     private static volatile boolean threadRunning = true;
     private static Thread slideshowThread;
+    /**
+     * Shows building details with a slideshow of images and captions.
+     *
+     * @param  primaryStage  the primary stage for the JavaFX application
+     * @param  buildingName  the name of the building for which details are shown
+     */
     public static void showBuildingDetails(Stage primaryStage, String buildingName) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();
@@ -186,6 +191,12 @@ root.setBottom(controlButtons);
 
         
 
+    /**
+     * Creates a VBox containing a button for returning to the Building Options GUI.
+     *
+     * @param  primaryStage  the primary stage for the JavaFX application
+     * @return               a VBox containing the return button
+     */
     private static VBox createTopRightButtons(Stage primaryStage) {
         VBox topRightButtons = new VBox();
         topRightButtons.setStyle("-fx-background-color: transparent;");
@@ -203,6 +214,15 @@ root.setBottom(controlButtons);
         return topRightButtons;
     }
 
+    /**
+     * Creates a VBox containing a button for navigating to the previous image in the list of images.
+     *
+     * @param  images      a list of ImageWithCaptions objects representing the images to navigate through
+     * @param  imageView   the ImageView to display the current image
+     * @param  captionLabel the Label to display the caption of the current image
+     * @param  listener     the BuildingDetailsListener to notify when the image is changed
+     * @return             a VBox containing the left navigation button
+     */
     private static VBox createLeftNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
@@ -225,6 +245,15 @@ root.setBottom(controlButtons);
         return navButtons;
     }
 
+    /**
+     * Creates a VBox containing a button for navigating to the next image in the list of images.
+     *
+     * @param  images      a list of ImageWithCaptions objects representing the images to navigate through
+     * @param  imageView   the ImageView to display the current image
+     * @param  captionLabel the Label to display the caption of the current image
+     * @param  listener     the BuildingDetailsListener to notify when the image is changed
+     * @return             a VBox containing the right navigation button
+     */
     private static VBox createRightNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
@@ -247,6 +276,13 @@ root.setBottom(controlButtons);
         return navButtons;
     }
 
+    /**
+     * A description of the entire Java function.
+     *
+     * @param  images      description of parameter
+     * @param  currentImage description of parameter
+     * @return             description of return value
+     */
     private static int getCurrentIndex(List<ImageWithCaptions> images, Image currentImage) {
         for (int i = 0; i < images.size(); i++) {
             if (images.get(i).getImage().getUrl().equals(currentImage.getUrl())) {
@@ -256,6 +292,12 @@ root.setBottom(controlButtons);
         return -1;
     }
 
+    /**
+     * Applies a fade transition to the given ImageView. The transition consists of a fade effect and a translation effect.
+     *
+     * @param  imageView   the ImageView to apply the transition to
+     * @param  isLeft      true if the transition should move the image to the left, false if it should move to the right
+     */
     private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(TRANSITION_DURATION), imageView);
         fadeTransition.setFromValue(1.0);
