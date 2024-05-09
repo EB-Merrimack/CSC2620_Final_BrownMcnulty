@@ -27,11 +27,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * The ComputerScienceProgramgui class is responsible for displaying details about the computer science program.
+ * It loads images with captions representing different aspects of the program and displays them in a slideshow format.
+ */
 public class ComputerScienceProgramgui {
     private static volatile boolean threadRunning = true;
     private static Thread slideshowThread;
    private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
 
+
+   /**
+     * Displays the computer science program details in a JavaFX Stage.
+     * This method sets up the layout, loads images with captions, and creates a slideshow.
+     *
+     * @param primaryStage The primary stage to display the program details.
+     */
     public static void showBuildingDetails(Stage primaryStage) {
         // Create BorderPane layout
         BorderPane root = new BorderPane();

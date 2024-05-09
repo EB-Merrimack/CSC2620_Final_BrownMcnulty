@@ -27,6 +27,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * The maincampusgui class is responsible for displaying details about Merrimack's main campus.
+ * It loads images with captions representing different aspects of the program and displays them in a slideshow format.
+ */
 public class maincampusgui {
     private static final int TRANSITION_DURATION = 250; // Duration for transition in milliseconds
     private static volatile boolean threadRunning = true;

@@ -15,6 +15,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The BuildingOptionsGUI class represents a JavaFX application that allows users
+ * to select different building options.
+ * 
+ */
 public class BuildingOptionsGUI extends Application {
 
     /**

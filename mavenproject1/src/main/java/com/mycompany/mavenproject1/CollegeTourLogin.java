@@ -23,6 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * A class that allows a user to login to the application
+ */
 @SuppressWarnings("unused")
 public class CollegeTourLogin extends Application {
 
