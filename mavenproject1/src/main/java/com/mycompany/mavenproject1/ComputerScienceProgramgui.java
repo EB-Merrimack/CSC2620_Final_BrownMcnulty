@@ -184,6 +184,13 @@ root.setBottom(controlButtons);
     }
 
         
+    /**
+     * Creates and returns a VBox containing a "Return to Building Options" button.
+     *
+     * @param  primaryStage  the primary stage of the JavaFX application
+     * @return               the VBox containing the "Return to Building Options" button
+     */
+
     private static VBox createTopRightButtons(Stage primaryStage) {
         VBox topRightButtons = new VBox();
         topRightButtons.setStyle("-fx-background-color: transparent;");
