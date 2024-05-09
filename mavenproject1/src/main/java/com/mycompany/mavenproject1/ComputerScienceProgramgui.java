@@ -207,12 +207,21 @@ root.setBottom(controlButtons);
         topRightButtons.setAlignment(Pos.TOP_RIGHT);
         return topRightButtons;
     }
-
+        // Create left button
+    /**
+     * Generate the left navigation buttons for the given images and components.
+     *
+     * @param  images         a list of ImageWithCaptions objects
+     * @param  imageView      the main ImageView component
+     * @param  captionLabel   the Label component for captions
+     * @param  listener       the BuildingDetailsListener for handling image changes
+     * @return                a VBox containing the left navigation buttons
+     */
     private static VBox createLeftNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
 
-        // Create left button
+
         Button leftButton = new Button("←");
         leftButton.setStyle("-fx-background-color: gold; -fx-font-size: 20px; -fx-padding: 10px;");
         leftButton.setOnAction(event -> {
