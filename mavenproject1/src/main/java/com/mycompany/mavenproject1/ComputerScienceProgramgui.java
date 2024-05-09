@@ -239,6 +239,15 @@ root.setBottom(controlButtons);
         return navButtons;
     }
 
+    /**
+     * Creates a VBox containing the right navigation buttons for an image viewer.
+     *
+     * @param  images        the list of images to navigate through
+     * @param  imageView     the ImageView displaying the current image
+     * @param  captionLabel  the Label displaying the caption of the current image
+     * @param  listener       the listener to notify when the displayed image changes
+     * @return               the VBox containing the right navigation buttons
+     */
     private static VBox createRightNavigationButtons(List<ImageWithCaptions> images, ImageView imageView, Label captionLabel, BuildingDetailsListener listener) {
         VBox navButtons = new VBox();
         navButtons.setStyle("-fx-background-color: transparent;");
@@ -252,6 +261,7 @@ root.setBottom(controlButtons);
                 ImageWithCaptions newImage = images.get(currentIndex + 1);
                 Image image = new Image(newImage.getUrl()); // Correct way to create Image from URL
                 imageView.setImage(image);
+  
                 applyFadeTransition(imageView, false);
                 listener.onImageDisplayedChanged(newImage.getCaption()); // Notify listener with the new caption
             }
@@ -260,8 +270,15 @@ root.setBottom(controlButtons);
         navButtons.getChildren().add(rightButton);
         return navButtons;
     }
+      /**
+     * Returns the index of the given image in the list of images, or -1 if the image is not found.
+     *
+     * @param  images    the list of images to search in
+     * @param  currentImage  the image to find the index of
+     * @return            the index of the image in the list, or -1 if not found
+     */
 
-    private static int getCurrentIndex(List<ImageWithCaptions> images, Image currentImage) {
+ private static int getCurrentIndex(List<ImageWithCaptions> images, Image currentImage) {
         for (int i = 0; i < images.size(); i++) {
             if (images.get(i).getImage().getUrl().equals(currentImage.getUrl())) {
                 return i;
@@ -270,6 +287,11 @@ root.setBottom(controlButtons);
         return -1;
     }
 
+    
+    /** 
+     * @param imageView
+     * @param isLeft
+     */
     private static void applyFadeTransition(ImageView imageView, boolean isLeft) {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(TRANSITION_DURATION), imageView);
         fadeTransition.setFromValue(1.0);
