@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class CollegeTourLogin extends Application {
 
     private static final String JSON_FILE_PATH = "users.json";
