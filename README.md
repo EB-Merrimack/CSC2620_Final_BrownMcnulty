@@ -1,6 +1,4 @@
-Sure, here's the README file updated with your information and an educational license:
 
----
 
 # CSC2620 Final Project - Building Details GUI
 
