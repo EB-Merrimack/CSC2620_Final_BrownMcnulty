@@ -28,6 +28,12 @@ public class CollegeTourLogin extends Application {
 
     private static final String JSON_FILE_PATH = "users.json";
 
+    /**
+     * Overrides the start method of the Application class to initialize the JavaFX
+     * application.
+     *
+     * @param  primaryStage  the primary stage of the application
+     */
     @Override
     public void start(Stage primaryStage) {
         Parent root = getRoot(primaryStage);
