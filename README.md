@@ -17,7 +17,7 @@ To run this application, ensure that you have the JavaFX SDK installed and confi
 ```plaintext
 JAVA_FX_SDK=C:\Program Files\javafx-sdk-22.0.1
 ```
-
+Please also make sure Maven is configured on your device
 ## Usage
 
 1. Clone or download the project repository.
